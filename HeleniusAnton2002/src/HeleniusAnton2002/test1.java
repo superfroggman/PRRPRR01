@@ -19,7 +19,7 @@ public class test1 {
 		System.out.println("aww man");
 
 		if (input == "aww man") {
-			System.out.print("so we back in the mine owo");
+			System.out.print("so we back in the mine owooooo");
 		}
 	}
 
