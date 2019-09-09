@@ -14,7 +14,7 @@ public class test1 {
 		String input = scanner.nextLine();
 
 		if (input.equals("aww man")) {
-			System.out.print("so we back in the mine");
+			System.out.println("so we back in the mine");
 		}
 	}
 }
