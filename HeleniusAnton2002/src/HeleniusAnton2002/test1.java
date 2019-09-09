@@ -9,7 +9,6 @@ public class test1 {
 
 		Scanner scanner = new Scanner(System.in);
 
-		System.out.println(waa(50));
 		System.out.println("Creeper?");
 
 		String input = scanner.nextLine();
@@ -18,9 +17,4 @@ public class test1 {
 			System.out.print("so we back in the mine");
 		}
 	}
-
-	public static int waa(int a) {
-		return 2 * a;
-	}
-
 }
