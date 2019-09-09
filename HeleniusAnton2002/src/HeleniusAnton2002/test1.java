@@ -14,12 +14,8 @@ public class test1 {
 
 		String input = scanner.nextLine();
 
-		System.out.println(input);
-
-		System.out.println("aww man");
-
-		if (input == "aww man") {
-			System.out.print("so we back in the mine owooooo");
+		if (input.equals("aww man")) {
+			System.out.print("so we back in the mine");
 		}
 	}
 
