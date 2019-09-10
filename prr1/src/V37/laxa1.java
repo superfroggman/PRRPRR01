@@ -26,5 +26,9 @@ public class laxa1 {
 		
 		System.out.println("Vad är ditt telefonnummer?");
 		String telenum = input.nextLine();
+		
+		input.close();
+		
+		System.out.println("INFORMATION:\nNamn:\t" + namn + "\nÅlder:\t" + age + "\nAdress:\t" + adress + "\n\t" + postnum + " " + stad + "\nTel:\t" + telenum);
 	}
 }
