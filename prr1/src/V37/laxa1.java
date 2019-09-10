@@ -12,5 +12,6 @@ public class laxa1 {
 		System.out.println("Vad är ditt namn?");
 		
 		String namn = input.nextLine();
+		String age = input.nextLine();
 	}
 }
