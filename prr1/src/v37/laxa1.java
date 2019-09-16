@@ -1,4 +1,4 @@
-package V37;
+package v37;
 
 import java.util.Scanner;
 
