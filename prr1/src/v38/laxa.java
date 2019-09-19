@@ -8,28 +8,33 @@ public class laxa {
 
 		// Initialize input scanner
 		Scanner input = new Scanner(System.in);
-
-		// Create an array of numbers
-		int[] numbers = new int[5];
-
-		//Ask for user input
-		System.out.println("Please input 5 integreters:");
 		
+		int numberOfNumbers = 5;
+		
+		// Create an array of numbers
+		int[] numbers = new int[numberOfNumbers];
+
+		// Ask for user input
+		System.out.println("Please input 5 integers:");
+
 		// Set array of numbers to user input
-		for (int i = 0; i < 5; i++) {
-			//Print error message and discard input if not an int
-			while(!input.hasNextInt()) {
-				System.out.println("That was not an integreter. Please try again!");
+		for (int i = 0; i < numberOfNumbers; i++) {
+			System.out.println("Only " + (numberOfNumbers - i) + " ints left.");
+			// Print error message and discard input if not an int
+			while (!input.hasNextInt()) {
+				System.out.println("That was not an integer. Please try again!");
 				input.next();
 			}
 			numbers[i] = input.nextInt();
-			System.out.println("Thank you. Only "+ (4-i) + " ints left");
+
 		}
 
-		// Print the result of the function highNumber
-		System.out.println("");
+		// Print the result of the functions
+		System.out.println("\nHighest number:");
 		System.out.println(highNumber(numbers));
+		System.out.println("\nLowest number:");
 		System.out.println(lowNumber(numbers));
+		System.out.println("\nAverage number:");
 		System.out.println(averageNumber(numbers));
 	}
 
