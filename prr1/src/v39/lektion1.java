@@ -1,10 +1,12 @@
 package v39;
 
 public class lektion1 {
-
+	
+	//private static Loops loops = new Loops();
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
+		System.out.println(Loops.waa(1));
 	}
 
 }
