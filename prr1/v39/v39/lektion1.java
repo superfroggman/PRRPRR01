@@ -6,7 +6,11 @@ public class lektion1 {
 	
 	public static void main(String[] args) {
 
-		System.out.println(Loops.waa(1));
+		Loops.printFromTo(0, 99);
+		
+		System.out.println(Loops.sumFromTo(25, 50));
+		
+		Loops.printFromTo(20, 0);
 	}
 
 }
