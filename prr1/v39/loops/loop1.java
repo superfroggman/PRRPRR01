@@ -1,4 +1,4 @@
-package v39.loops;
+package loops;
 
 public class loop1 {
 
