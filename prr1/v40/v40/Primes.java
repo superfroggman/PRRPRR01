@@ -1,10 +1,15 @@
 package v40;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Primes {
 
 	public static void main(String[] args) {
 
-		int[] primes = { 2, 3 };
+		List<Integer> primes = new ArrayList<Integer>();
+		primes.add(2);
+		primes.add(3);
 
 		for (int prime : primes) {
 			System.out.println(prime);
@@ -13,24 +18,20 @@ public class Primes {
 		int number = 3;
 		while (true) {
 			number++;
-			
-			
+
 			boolean isPrime = true;
-			for(int prime:primes) {
-				if(number%prime==0) {
+			
+			ooo:
+			for (int prime : primes) {
+				if(prime>Math.sqrt(number)) break ooo;
+				if (number % prime == 0) {
 					isPrime = false;
 				}
 			}
-			
-			if(isPrime) {
-				int[] newPrimes = new int[primes.length + 1];
-				int j = 0;
-				for (; j < primes.length; j++) {
-					newPrimes[j] = primes[j];
-				}
 
-				newPrimes[j] = number;
-				primes = newPrimes;
+			if (isPrime) {
+				primes.add(number);
+
 				System.out.println(number);
 			}
 		}
