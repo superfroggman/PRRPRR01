@@ -18,8 +18,8 @@ public class Program4 {
 			sum *= input.nextInt();
 			numbers++;
 		}
-		
-		System.out.println("sum: "+sum);
-		System.out.println("number of inputs: "+numbers);
+
+		System.out.println("sum: " + sum);
+		System.out.println("number of inputs: " + numbers);
 	}
 }
