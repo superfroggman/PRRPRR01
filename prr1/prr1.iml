@@ -13,6 +13,9 @@
       <sourceFolder url="file://$MODULE_DIR$/v45" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/v46" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/v48/v48" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/cloud/cool" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/v50/v50" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Cloud4" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="inheritedJdk" />

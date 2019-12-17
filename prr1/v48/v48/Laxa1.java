@@ -14,6 +14,54 @@ public class Laxa1 {
     }
 
 
+    public static int sevens(int[] numbers){
+        int sevens = 0;
+
+        for(int number:numbers){
+            if(number==7) sevens++;
+        }
+
+        return sevens;
+    }
+
+    public static int toms(String[] names){
+        int toms = 0;
+
+        for(String tom:names){
+            if(tom.equals("Tom")) toms++;
+        }
+
+        return toms;
+    }
+
+    /**
+     *
+     * @param numbers
+     * @return []
+     */
+    /*
+    public static int[] leastMost(int[] numbers){
+
+        int[] things = new int[10];
+
+        for(int number:numbers){
+            things[number-1]++;
+        }
+
+        int lowestNumber = things[0];
+        int highestNumber = things[0];
+        for(int thing:things){
+            if(thing<lowestNumber)lowestNumber=thing;
+            if(thing<lowestNumber)highestNumber=thing;
+        }
+
+
+
+        return new int[lowestNumber, highestNumber];
+    }
+
+     */
+
     public static int uniqueNames(String[] inputNames) {
 
         ArrayList<String> uniqueNames = new ArrayList<>();
@@ -32,24 +80,15 @@ public class Laxa1 {
         return uniqueNames.size();
     }
 
-    public static int commonName(String[] inputNames) {
+    public static void commonName(String[] inputNames) {
 
-        ArrayList<String> uniqueNames = new ArrayList<>();
-        ArrayList<Integer> amount = new ArrayList<>();
+        int[] amount = new int[inputNames.length];
 
+        for(int i = 0; i< inputNames.length;i++){
 
-        for (int i = 0;i<inputNames.length;i++) {
-            boolean unique = true;
-            for (String uniqueName : uniqueNames) {
-                if (inputNames[i].equals(uniqueName)) unique = false;
-            }
-
-            if (unique) {
-				uniqueNames.add(inputNames[i]);
-				amount.add(1);
-			}
         }
 
-        return uniqueNames.size();
+
+
     }
 }

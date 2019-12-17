@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5cb16331-2897-4d96-a878-94d0980fd09e" name="Default Changelist" comment="" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,30 +17,44 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
+      </MavenImportingSettings>
+    </option>
+  </component>
   <component name="ProjectId" id="1TT1WQtWF7cljpJrTnbWuRr6nmE" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/v48" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/v50" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.importing" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\anton.helenius\Documents\GitHub\superfroggman\prr1" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="v50.v50" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\anton.helenius\Documents\GitHub\superfroggman\prr1\v50" />
       <recent name="C:\Users\anton.helenius\Documents\GitHub\superfroggman\prr1\v48" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="Application.Laxa1">
+  <component name="RunManager" selected="Application.threadTest">
     <configuration name="Laxa1" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Laxa1" />
       <module name="prr1" />
@@ -56,12 +69,32 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="threadTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Cloud.threadTest" />
+      <module name="prr1" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.threadTest" />
         <item itemvalue="Application.Laxa1" />
         <item itemvalue="Application.methodLibrary" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -88,5 +121,47 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="414" y="179" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1576581431744">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="414" y="179" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1576581431744" />
+    <state x="687" y="333" key="FileChooserDialogImpl" timestamp="1576581467900">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="687" y="333" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1576581467900" />
+    <state width="1877" height="266" key="GridCell.Tab.0.bottom" timestamp="1576581229189">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1576581229189" />
+    <state width="1877" height="266" key="GridCell.Tab.0.center" timestamp="1576581229189">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="266" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1576581229189" />
+    <state width="1877" height="266" key="GridCell.Tab.0.left" timestamp="1576581229189">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="266" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1576581229189" />
+    <state width="1877" height="266" key="GridCell.Tab.0.right" timestamp="1576581229189">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="266" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1576581229189" />
+    <state x="461" y="166" key="SettingsEditor" timestamp="1576581679750">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="461" y="166" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1576581679750" />
+    <state x="685" y="485" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1576581592301">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="685" y="485" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1920.1050@0.0.1920.1050" timestamp="1576581592301" />
+    <state x="618" y="183" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1576579006616">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="618" y="183" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1576579006616" />
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1575892549213">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1575892549213" />
   </component>
 </project>
