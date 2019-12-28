@@ -1,6 +1,4 @@
-
-
-package Cloud;
+package cloud;
 
 public class threadTest extends Thread {
 
@@ -8,8 +6,8 @@ public class threadTest extends Thread {
 
         int threadCount = 16;
 
-        threadTest[] t = new threadTest[16];
-        for (int i = 0; i < 16; i++) {
+        threadTest[] t = new threadTest[threadCount];
+        for (int i = 0; i < threadCount; i++) {
             t[i] = new threadTest();
             t[i].start();
         }
