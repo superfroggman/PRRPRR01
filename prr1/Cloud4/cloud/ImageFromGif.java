@@ -19,8 +19,10 @@ public class ImageFromGif {
         //Choose file to process
         File file = new File("tabs.gif");
 
-
+        //Create arraylist for all images
         ArrayList<BufferedImage> images = new ArrayList();
+
+        //try to get frames from file to arraylist
         try {
             images = getFrames(file);
         } catch (Exception e) {
@@ -29,10 +31,12 @@ public class ImageFromGif {
             return;
         }
 
+        //get width, height and framecount
         int width = images.get(0).getWidth();
         int height = images.get(0).getHeight();
         int frameCount = images.size();
 
+        //print width, height and framecount
         System.out.println("Width: " + width);
         System.out.println("Height: " + height);
         System.out.println("Frame Count: " + frameCount);
