@@ -10,7 +10,9 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.stream.ImageInputStream;
+import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -21,41 +23,43 @@ import java.util.Map;
 
 public class ImageFromGif {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         //Choose file to process
         File file = new File("tabs.gif");
 
-        //Create arraylist for all images
-        ArrayList<BufferedImage> images = new ArrayList();
+        int frameCount = 0;
 
         //try to get frames from file to arraylist
         try {
-            images = getFrames(file);
+            frameCount = getFrames(file);
         } catch (Exception e) {
             //print error and stop program on error
             e.printStackTrace();
             return;
         }
 
+        //Initiate output image as first image in array
+        File originImage = new File("0cloudTemp.gif");
+        BufferedImage outImage = ImageIO.read(originImage);
+
         //get width, height and framecount
-        int width = images.get(0).getWidth();
-        int height = images.get(0).getHeight();
-        int frameCount = images.size();
+        int width = outImage.getWidth();
+        int height = outImage.getHeight();
+
 
         //print width, height and framecount
         System.out.println("Width: " + width);
         System.out.println("Height: " + height);
         System.out.println("Frame Count: " + frameCount);
 
-        //Initiate output image as first image in array
-        BufferedImage outImage = images.get(0);
 
         //loop through all but first frames
         for (int i = 1; i < frameCount; i++) {
 
             //get current frame
-            BufferedImage image = images.get(1);
+            File imageFile = new File(i + "cloudTemp.gif");
+            BufferedImage image = ImageIO.read(imageFile);
 
             //loop through pixels on x axis
             for (int x = 0; x < width; x++) {
@@ -70,30 +74,19 @@ public class ImageFromGif {
                     int imageColor = image.getRGB(x, y);
                     int imageBrightness = colorToCombinedRGB(image.getRGB(x, y));
 
-                    if (outColor != imageColor) {
-                        System.out.println("NOT EQUAL!");
-                    }
-
                     //System.out.println("frame: "+i+" x: "+x+" y: "+y+" imagebri: "+imageBrightness+" outbri: "+outBrightness);
                     if (imageBrightness < outBrightness) {
                         outImage.setRGB(x, y, imageColor);
                     }
-
-
-
                 }
             }
+
+            imageFile.delete();
         }
 
-        saveImage(images.get(1));
+        saveImage(outImage);
 
-        for (int i = 0; i < 30; i++) {
-            try {
-                ImageIO.write(images.get(i), "PNG", new File( i + ".png"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        originImage.delete();
     }
 
 
@@ -132,10 +125,9 @@ public class ImageFromGif {
      * @return
      * @throws IOException
      */
-    public static ArrayList<BufferedImage> getFrames(File gif) throws IOException {
+    public static int getFrames(File gif) throws IOException {
 
-        ArrayList<BufferedImage> images = new ArrayList();
-
+        int frameCount = 0;
         try {
             String[] imageatt = new String[]{
                     "imageLeftPosition",
@@ -145,10 +137,11 @@ public class ImageFromGif {
             };
 
             ImageReader reader = (ImageReader)ImageIO.getImageReadersByFormatName("gif").next();
-            ImageInputStream ciis = ImageIO.createImageInputStream(new File("tabs.gif"));
+            ImageInputStream ciis = ImageIO.createImageInputStream(gif);
             reader.setInput(ciis, false);
 
             int noi = reader.getNumImages(true);
+            //BufferedImage master = null;
             BufferedImage master = null;
 
             for (int i = 0; i < noi; i++) {
@@ -175,13 +168,13 @@ public class ImageFromGif {
                         master.getGraphics().drawImage(image, imageAttr.get("imageLeftPosition"), imageAttr.get("imageTopPosition"), null);
                     }
                 }
-                images.add(master);
-                ImageIO.write(master, "GIF", new File( i + ".gif"));
+                ImageIO.write((RenderedImage) master, "GIF", new File( i + "cloudTemp.gif"));
+                frameCount++;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return images;
+        return frameCount;
     }
 }
