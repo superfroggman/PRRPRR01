@@ -2,15 +2,22 @@ package cloud;
 
 import com.sun.imageio.plugins.gif.GIFImageReader;
 import com.sun.imageio.plugins.gif.GIFImageReaderSpi;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
+import javax.imageio.metadata.IIOMetadata;
+import javax.imageio.stream.ImageInputStream;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ImageFromGif {
 
@@ -48,30 +55,45 @@ public class ImageFromGif {
         for (int i = 1; i < frameCount; i++) {
 
             //get current frame
-            BufferedImage image = images.get(i);
+            BufferedImage image = images.get(1);
 
             //loop through pixels on x axis
-            for (int x = 0; x < image.getWidth(); x++) {
+            for (int x = 0; x < width; x++) {
 
                 //loop through pixels on y axis
-                for (int y = 0; y < image.getHeight(); y++) {
+                for (int y = 0; y < height; y++) {
 
                     int outColor = outImage.getRGB(x, y);
-                    int outBrightness = colorToCombinedRGB(outColor);
+                    int outBrightness = colorToCombinedRGB(outImage.getRGB(x, y));
 
-                    System.out.println("frame: "+i+" x: "+x+" y: "+y+" imagewidth: "+image.getWidth()+" originwidth: "+width);
+                    //System.out.println("frame: "+i+" x: "+x+" y: "+y+" imagewidth: "+image.getWidth()+" originwidth: "+width);
                     int imageColor = image.getRGB(x, y);
-                    int imageBrightness = colorToCombinedRGB(imageColor);
+                    int imageBrightness = colorToCombinedRGB(image.getRGB(x, y));
 
+                    if (outColor != imageColor) {
+                        System.out.println("NOT EQUAL!");
+                    }
+
+                    //System.out.println("frame: "+i+" x: "+x+" y: "+y+" imagebri: "+imageBrightness+" outbri: "+outBrightness);
                     if (imageBrightness < outBrightness) {
                         outImage.setRGB(x, y, imageColor);
                     }
+
+
 
                 }
             }
         }
 
-        saveImage(outImage);
+        saveImage(images.get(1));
+
+        for (int i = 0; i < 30; i++) {
+            try {
+                ImageIO.write(images.get(i), "PNG", new File( i + ".png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
@@ -85,12 +107,6 @@ public class ImageFromGif {
         }
     }
 
-    public static void writeFile(String canonicalFilename, String text) throws IOException {
-        File file = new File(canonicalFilename);
-        BufferedWriter out = new BufferedWriter(new FileWriter(file));
-        out.write(text);
-        out.close();
-    }
 
     /**
      * Takes a strange color value and returns a combined value of 8bit RGB values
@@ -109,7 +125,7 @@ public class ImageFromGif {
     }
 
     /**
-     * got this from stackoverflow https://stackoverflow.com/a/8935070 https://stackoverflow.com/a/16234122
+     * got this from stackoverflow https://stackoverflow.com/a/10627458
      * don't know how it works but it does
      *
      * @param gif
@@ -117,11 +133,55 @@ public class ImageFromGif {
      * @throws IOException
      */
     public static ArrayList<BufferedImage> getFrames(File gif) throws IOException {
-        ArrayList<BufferedImage> frames = new ArrayList<BufferedImage>();
-        ImageReader ir = new GIFImageReader(new GIFImageReaderSpi());
-        ir.setInput(ImageIO.createImageInputStream(gif));
-        for (int i = 0; i < ir.getNumImages(true); i++)
-            frames.add(ir.read(i));
-        return frames;
+
+        ArrayList<BufferedImage> images = new ArrayList();
+
+        try {
+            String[] imageatt = new String[]{
+                    "imageLeftPosition",
+                    "imageTopPosition",
+                    "imageWidth",
+                    "imageHeight"
+            };
+
+            ImageReader reader = (ImageReader)ImageIO.getImageReadersByFormatName("gif").next();
+            ImageInputStream ciis = ImageIO.createImageInputStream(new File("tabs.gif"));
+            reader.setInput(ciis, false);
+
+            int noi = reader.getNumImages(true);
+            BufferedImage master = null;
+
+            for (int i = 0; i < noi; i++) {
+                BufferedImage image = reader.read(i);
+                IIOMetadata metadata = reader.getImageMetadata(i);
+
+                Node tree = metadata.getAsTree("javax_imageio_gif_image_1.0");
+                NodeList children = tree.getChildNodes();
+
+                for (int j = 0; j < children.getLength(); j++) {
+                    Node nodeItem = children.item(j);
+
+                    if(nodeItem.getNodeName().equals("ImageDescriptor")){
+                        Map<String, Integer> imageAttr = new HashMap<String, Integer>();
+
+                        for (int k = 0; k < imageatt.length; k++) {
+                            NamedNodeMap attr = nodeItem.getAttributes();
+                            Node attnode = attr.getNamedItem(imageatt[k]);
+                            imageAttr.put(imageatt[k], Integer.valueOf(attnode.getNodeValue()));
+                        }
+                        if(i==0){
+                            master = new BufferedImage(imageAttr.get("imageWidth"), imageAttr.get("imageHeight"), BufferedImage.TYPE_INT_ARGB);
+                        }
+                        master.getGraphics().drawImage(image, imageAttr.get("imageLeftPosition"), imageAttr.get("imageTopPosition"), null);
+                    }
+                }
+                images.add(master);
+                ImageIO.write(master, "GIF", new File( i + ".gif"));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return images;
     }
 }
