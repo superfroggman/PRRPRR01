@@ -20,6 +20,11 @@ public class ImageFromGif {
 
     public static void main(String[] args) throws IOException {
 
+        boolean verbose = false;
+        for (String arg:args) {
+            if (arg.equals("-v")) verbose=true;
+        }
+        
         //Get file from argument
         File file = new File(args[0]);
 
@@ -27,7 +32,7 @@ public class ImageFromGif {
 
         //try to get frames from file to arraylist
         try {
-            frameCount = getFrames(file);
+            frameCount = getFrames(file, verbose);
         } catch (Exception e) {
             //print error and stop program on error
             e.printStackTrace();
@@ -77,6 +82,8 @@ public class ImageFromGif {
             }
 
             imageFile.delete();
+
+            if(verbose) System.out.println("Processing Frame: "+(i+1)+"/"+frameCount);
         }
 
         saveImage(outImage, args[1]);
@@ -120,7 +127,7 @@ public class ImageFromGif {
      * @return
      * @throws IOException
      */
-    public static int getFrames(File gif) throws IOException {
+    public static int getFrames(File gif, boolean verbose) throws IOException {
 
         int frameCount = 0;
         try {
@@ -136,6 +143,9 @@ public class ImageFromGif {
             reader.setInput(ciis, false);
 
             int noi = reader.getNumImages(true);
+
+            frameCount = noi;
+
             //BufferedImage master = null;
             BufferedImage master = null;
 
@@ -163,9 +173,12 @@ public class ImageFromGif {
                         master.getGraphics().drawImage(image, imageAttr.get("imageLeftPosition"), imageAttr.get("imageTopPosition"), null);
                     }
                 }
+
                 ImageIO.write((RenderedImage) master, "GIF", new File( i + "cloudTemp.gif"));
-                frameCount++;
+
+                if(verbose) System.out.println("Generating Frame: "+(i+1)+"/"+noi);
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
