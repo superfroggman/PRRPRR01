@@ -1,7 +1,5 @@
-package cloud;
+//package cloud;
 
-import com.sun.imageio.plugins.gif.GIFImageReader;
-import com.sun.imageio.plugins.gif.GIFImageReaderSpi;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -10,23 +8,20 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.stream.ImageInputStream;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class ImageFromGif {
 
     public static void main(String[] args) throws IOException {
 
-        //Choose file to process
-        File file = new File("tabs.gif");
+        //Get file from argument
+        File file = new File(args[0]);
 
         int frameCount = 0;
 
@@ -84,16 +79,16 @@ public class ImageFromGif {
             imageFile.delete();
         }
 
-        saveImage(outImage);
+        saveImage(outImage, args[1]);
 
         originImage.delete();
     }
 
 
-    public static void saveImage(BufferedImage image) {
+    public static void saveImage(BufferedImage image, String location) {
         try {
             // retrieve image
-            File outputfile = new File("saved.png");
+            File outputfile = new File(location);
             ImageIO.write(image, "png", outputfile);
         } catch (IOException e) {
             e.printStackTrace();
