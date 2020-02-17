@@ -16,6 +16,7 @@
       <sourceFolder url="file://$MODULE_DIR$/cloud/cool" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/v50/v50" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Cloud4" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/talspelet" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="inheritedJdk" />
