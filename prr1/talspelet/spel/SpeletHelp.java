@@ -3,7 +3,7 @@ package spel;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Spelet {
+public class SpeletHelp {
 
     public static void main(String[] args) {
 
@@ -48,6 +48,9 @@ public class Spelet {
         int highInterval = 100;
         int difficulty = 1;
 
+        int lowGuess = lowInterval;
+        int highguess = highInterval;
+
         //Get the lower interval from user input
         System.out.println("What is the lowest possible number to guess?");
         lowInterval = getInputInt(input, lowInterval);
@@ -66,7 +69,7 @@ public class Spelet {
         int correctNumber = randomInInterval(lowInterval, highInterval);
 
         //Loop guess method until the guess is correct or lives are out
-        while (!doGuess(input, correctNumber)) {
+        while (!doGuess(input, correctNumber, lowGuess, highguess)) {
             lives--;
             //Lose when lives are out
             if (lives <= 0) {
@@ -82,7 +85,6 @@ public class Spelet {
     }
 
     /**
-     *
      * @param input
      * @param defaultSetting
      * @return
@@ -100,7 +102,6 @@ public class Spelet {
     }
 
     /**
-     *
      * @param input
      * @param defaultSetting
      * @return
@@ -150,24 +151,40 @@ public class Spelet {
      * @param correctNumber
      * @return
      */
-    public static boolean doGuess(Scanner input, int correctNumber) {
+    public static boolean doGuess(Scanner input, int correctNumber, int lowGuessIn, int highGuessIn) {
 
-        System.out.println("\nGuess a number:");
-        //ADD TRY CATCH
-        while (!input.hasNextInt()) {
-            input.nextLine(); //Clear input for next request
-            System.out.println("Please enter an integer input!");
-            System.out.println("Guess a number:");
+        int lowGuess = lowGuessIn;
+        int highGuess = highGuessIn;
+
+        int guess = 0;
+
+        System.out.println("HELP? yes (y) no (n)");
+
+        if (input.nextLine().equals("y")) {
+            guess = Math.round((highGuess + lowGuess) / 2);
+        } else {
+
+            System.out.println("\nGuess a number:");
+            //ADD TRY CATCH
+            while (!input.hasNextInt()) {
+                input.nextLine(); //Clear input for next request
+                System.out.println("Please enter an integer input!");
+                System.out.println("Guess a number:");
+            }
+
+            guess = input.nextInt();
         }
 
-        int guess = input.nextInt();
+        System.out.println("You guessed: "+guess);
 
         if (guess == correctNumber) {
             return true;
         } else if (guess < correctNumber) {
             System.out.println("Your guess is too low");
+            lowGuess = guess;
         } else if (guess > correctNumber) {
             System.out.println("Your guess is too high");
+            highGuess = guess;
         }
 
         return false;
@@ -202,11 +219,10 @@ public class Spelet {
      * @param correctNumber
      */
     public static void loseGame(int correctNumber) {
-        System.out.println("\nYOU LOST! The correct number was: "+correctNumber);
+        System.out.println("\nYOU LOST! The correct number was: " + correctNumber);
     }
 
     /**
-     *
      * @param lives
      */
     public static void winGame(int lives) {
