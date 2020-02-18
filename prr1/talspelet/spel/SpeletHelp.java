@@ -3,6 +3,8 @@ package spel;
 import java.util.Random;
 import java.util.Scanner;
 
+//This is the normal number game but with the option to press help for the optimal guessing
+
 public class SpeletHelp {
 
     public static void main(String[] args) {
@@ -48,9 +50,6 @@ public class SpeletHelp {
         int highInterval = 100;
         int difficulty = 1;
 
-        int lowGuess = lowInterval;
-        int highguess = highInterval;
-
         //Get the lower interval from user input
         System.out.println("What is the lowest possible number to guess?");
         lowInterval = getInputInt(input, lowInterval);
@@ -68,8 +67,12 @@ public class SpeletHelp {
         //Randomize the number to guess
         int correctNumber = randomInInterval(lowInterval, highInterval);
 
+        //Set initial guess limits for help
+        lowGuess = lowInterval;
+        highGuess = highInterval;
+
         //Loop guess method until the guess is correct or lives are out
-        while (!doGuess(input, correctNumber, lowGuess, highguess)) {
+        while (!doGuess(input, correctNumber)) {
             lives--;
             //Lose when lives are out
             if (lives <= 0) {
@@ -151,17 +154,16 @@ public class SpeletHelp {
      * @param correctNumber
      * @return
      */
-    public static boolean doGuess(Scanner input, int correctNumber, int lowGuessIn, int highGuessIn) {
-
-        int lowGuess = lowGuessIn;
-        int highGuess = highGuessIn;
+    public static int lowGuess;
+    public static int highGuess;
+    public static boolean doGuess(Scanner input, int correctNumber) {
 
         int guess = 0;
 
         System.out.println("HELP? yes (y) no (n)");
 
-        if (input.nextLine().equals("y")) {
-            guess = Math.round((highGuess + lowGuess) / 2);
+        if (input.next().equals("y")) {
+            guess = (highGuess + lowGuess) / 2;
         } else {
 
             System.out.println("\nGuess a number:");
