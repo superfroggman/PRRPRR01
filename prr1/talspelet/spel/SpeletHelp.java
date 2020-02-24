@@ -7,23 +7,29 @@ import java.util.Scanner;
 
 public class SpeletHelp {
 
+    static Scanner _input = new Scanner(System.in);
+
     public static void main(String[] args) {
 
-        Scanner input = new Scanner(System.in);
-
         System.out.println("Welcome to my NumberGame! This game is about guessing a number in a limited amount of guesses");
+
+        mainMenu();
+    }
+
+    
+    public static void mainMenu(){
 
         //Loop game until user selects exit option
         while (true) {
             System.out.println("Play the Game (0) or exit the Game (1)");
 
             //Make sure input is a number
-            if (input.hasNextInt()) {
+            if (_input.hasNextInt()) {
 
                 //Select menu option based on user input
-                switch (input.nextInt()) {
+                switch (_input.nextInt()) {
                     case 0:
-                        doRound(input);
+                        doRound(_input);
                         break;
                     case 1:
                         System.out.println("BYE!");
@@ -33,7 +39,7 @@ public class SpeletHelp {
                         break;
                 }
             } else {
-                input.nextLine();
+                _input.nextLine();
                 System.out.println("Please enter an integer input!");
             }
         }
@@ -63,35 +69,29 @@ public class SpeletHelp {
             System.out.println("Number of lives: " + lives);
             System.out.println("\nStart game (0)\nChoose lower interval limit (1)\nChoose higher interval limit (2)\nChoose difficulty (3)");
 
-            //Make sure input is a number
-            if (input.hasNextInt()) {
 
-                //Select menu option based on user input
-                switch (input.nextInt()) {
-                    case 0:
-                        break optionLoop;
-                    case 1:
-                        System.out.println("What is the lowest possible number to guess?");
-                        System.out.println("Current setting: " + lowInterval);
-                        lowInterval = getInputInt(input);
-                        break;
-                    case 2:
-                        System.out.println("What is the highest possible number to guess?");
-                        System.out.println("Current setting: " + highInterval);
-                        highInterval = getInputInt(input);
-                        break;
-                    case 3:
-                        System.out.println("Select difficulty: easy (0) medium (1) hard (2)");
-                        difficulty = getInputInt(input);
-                        lives = lives(difficulty);
-                        break;
-                    default:
-                        System.out.println("Please enter an acceptable input!");
-                        break;
-                }
-            } else {
-                input.nextLine();
-                System.out.println("Please enter an integer input!");
+            //Select menu option based on user input
+            switch (getInputInt()) {
+                case 0:
+                    break optionLoop;
+                case 1:
+                    System.out.println("What is the lowest possible number to guess?");
+                    System.out.println("Current setting: " + lowInterval);
+                    lowInterval = getInputInt();
+                    break;
+                case 2:
+                    System.out.println("What is the highest possible number to guess?");
+                    System.out.println("Current setting: " + highInterval);
+                    highInterval = getInputInt();
+                    break;
+                case 3:
+                    System.out.println("Select difficulty: easy (0) medium (1) hard (2)");
+                    difficulty = getInputInt();
+                    lives = lives(difficulty);
+                    break;
+                default:
+                    System.out.println("Please enter an acceptable input!");
+                    break;
             }
         }
 
@@ -110,7 +110,7 @@ public class SpeletHelp {
         highGuess = highInterval;
 
         //Loop guess method until the guess is correct or lives are out
-        while (!doGuess(input, correctNumber)) {
+        while (!doGuess(_input, correctNumber)) {
             lives--;
             //Lose when lives are out
             if (lives <= 0) {
@@ -126,18 +126,17 @@ public class SpeletHelp {
     }
 
     /**
-     * @param input
      * @return
      */
-    public static int getInputInt(Scanner input) {
+    public static int getInputInt() {
 
         //Discard input until input is an integer
-        while (!input.hasNextInt()) {
-            input.nextLine(); //Clear input for next request
+        while (!_input.hasNextInt()) {
+            _input.nextLine(); //Clear input for next request
             System.out.println("Please enter an integer input!");
         }
 
-        return input.nextInt();
+        return _input.nextInt();
     }
 
 
