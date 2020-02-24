@@ -49,23 +49,61 @@ public class SpeletHelp {
         int lowInterval = 0;
         int highInterval = 100;
         int difficulty = 1;
-
-        //Get the lower interval from user input
-        System.out.println("What is the lowest possible number to guess?");
-        lowInterval = getInputInt(input, lowInterval);
-
-        //Get the higher interval from user input
-        System.out.println("What is the highest possible number to guess?");
-        highInterval = getInputInt(input, highInterval);
-
-        //Get the difficulty from user input
-        System.out.println("Select difficulty: easy (0) medium (1) hard (2)");
-        difficulty = getInputDifficulty(input, difficulty);
         int lives = lives(difficulty);
-        System.out.println("You will now start with " + lives + " lives!");
+        boolean help = false;
+
+
+        //Loop options menu until canceled
+        optionLoop:
+        while (true) {
+
+            System.out.println("\nYour current settings are:");
+            System.out.println("Lower interval limit: " + lowInterval);
+            System.out.println("Higher interval limit: " + highInterval);
+            System.out.println("Number of lives: " + lives);
+            System.out.println("\nStart game (0)\nChoose lower interval limit (1)\nChoose higher interval limit (2)\nChoose difficulty (3)");
+
+            //Make sure input is a number
+            if (input.hasNextInt()) {
+
+                //Select menu option based on user input
+                switch (input.nextInt()) {
+                    case 0:
+                        break optionLoop;
+                    case 1:
+                        System.out.println("What is the lowest possible number to guess?");
+                        System.out.println("Current setting: " + lowInterval);
+                        lowInterval = getInputInt(input);
+                        break;
+                    case 2:
+                        System.out.println("What is the highest possible number to guess?");
+                        System.out.println("Current setting: " + highInterval);
+                        highInterval = getInputInt(input);
+                        break;
+                    case 3:
+                        System.out.println("Select difficulty: easy (0) medium (1) hard (2)");
+                        difficulty = getInputInt(input);
+                        lives = lives(difficulty);
+                        break;
+                    default:
+                        System.out.println("Please enter an acceptable input!");
+                        break;
+                }
+            } else {
+                input.nextLine();
+                System.out.println("Please enter an integer input!");
+            }
+        }
+
 
         //Randomize the number to guess
         int correctNumber = randomInInterval(lowInterval, highInterval);
+
+        //Enable help option if difficulty is easy
+        if (difficulty == 0) {
+
+            help = true;
+        }
 
         //Set initial guess limits for help
         lowGuess = lowInterval;
@@ -89,37 +127,19 @@ public class SpeletHelp {
 
     /**
      * @param input
-     * @param defaultSetting
      * @return
      */
-    public static int getInputInt(Scanner input, int defaultSetting) {
-        int out = defaultSetting;
+    public static int getInputInt(Scanner input) {
 
-        try {
-            out = input.nextInt();
-        } catch (Exception e) {
+        //Discard input until input is an integer
+        while (!input.hasNextInt()) {
             input.nextLine(); //Clear input for next request
-            System.out.println("You did not enter a valid number. The number will default to " + defaultSetting);
+            System.out.println("Please enter an integer input!");
         }
-        return out;
+
+        return input.nextInt();
     }
 
-    /**
-     * @param input
-     * @param defaultSetting
-     * @return
-     */
-    public static int getInputDifficulty(Scanner input, int defaultSetting) {
-        int out = defaultSetting;
-
-        try {
-            out = input.nextInt();
-        } catch (Exception e) {
-            input.nextLine(); //Clear input for next request
-            System.out.println("You did not enter a valid difficulty. The difficulty will default to medium");
-        }
-        return out;
-    }
 
     /**
      * Return lives from difficulty
@@ -156,9 +176,11 @@ public class SpeletHelp {
      */
     public static int lowGuess;
     public static int highGuess;
+
     public static boolean doGuess(Scanner input, int correctNumber) {
 
         int guess = 0;
+
 
         System.out.println("HELP? yes (y) no (n)");
 
@@ -177,7 +199,7 @@ public class SpeletHelp {
             guess = input.nextInt();
         }
 
-        System.out.println("You guessed: "+guess);
+        System.out.println("You guessed: " + guess);
 
         if (guess == correctNumber) {
             return true;
