@@ -16,23 +16,28 @@ public class SpeletHelp {
         mainMenu();
     }
 
-    
+    /**
+     * Main loop of the game
+     */
     public static void mainMenu(){
 
         //Loop game until user selects exit option
         while (true) {
-            System.out.println("Play the Game (0) or exit the Game (1)");
+            System.out.println("(1) Play the Game\n(2) Instructions\n(0) Exit the Game");
 
             //Make sure input is a number
             if (_input.hasNextInt()) {
 
                 //Select menu option based on user input
                 switch (_input.nextInt()) {
-                    case 0:
+                    case 1:
                         doRound(_input);
                         break;
-                    case 1:
-                        System.out.println("BYE!");
+                    case 2:
+                        instructions();
+                        break;
+                    case 0:
+                        System.out.println("Thanks for playing!");
                         return;
                     default:
                         System.out.println("Please enter an acceptable input!");
@@ -45,6 +50,8 @@ public class SpeletHelp {
         }
     }
 
+    static int lives = 10;
+    static boolean help = false;
     /**
      * Run an entire round of the game
      *
@@ -54,9 +61,6 @@ public class SpeletHelp {
         //Declare
         int lowInterval = 0;
         int highInterval = 100;
-        int difficulty = 1;
-        int lives = lives(difficulty);
-        boolean help = false;
 
 
         //Loop options menu until canceled
@@ -67,7 +71,8 @@ public class SpeletHelp {
             System.out.println("Lower interval limit: " + lowInterval);
             System.out.println("Higher interval limit: " + highInterval);
             System.out.println("Number of lives: " + lives);
-            System.out.println("\nStart game (0)\nChoose lower interval limit (1)\nChoose higher interval limit (2)\nChoose difficulty (3)");
+            System.out.println("Help enabled: "+help);
+            System.out.println("\n(0) Start game\n(1) Choose lower interval limit\n(2) Choose higher interval limit\n(3) Choose difficulty");
 
 
             //Select menu option based on user input
@@ -86,8 +91,7 @@ public class SpeletHelp {
                     break;
                 case 3:
                     System.out.println("Select difficulty: easy (0) medium (1) hard (2)");
-                    difficulty = getInputInt();
-                    lives = lives(difficulty);
+                    difficultyMenu();
                     break;
                 default:
                     System.out.println("Please enter an acceptable input!");
@@ -98,12 +102,6 @@ public class SpeletHelp {
 
         //Randomize the number to guess
         int correctNumber = randomInInterval(lowInterval, highInterval);
-
-        //Enable help option if difficulty is easy
-        if (difficulty == 0) {
-
-            help = true;
-        }
 
         //Set initial guess limits for help
         lowGuess = lowInterval;
@@ -133,38 +131,53 @@ public class SpeletHelp {
         //Discard input until input is an integer
         while (!_input.hasNextInt()) {
             _input.nextLine(); //Clear input for next request
-            System.out.println("Please enter an integer input!");
+            System.out.println("Please enter a boolean input!");
         }
 
         return _input.nextInt();
     }
 
-
     /**
-     * Return lives from difficulty
      *
-     * @param difficulty
      * @return
      */
-    public static int lives(int difficulty) {
-        int lives = 10;
+    public static boolean getInputBool() {
 
-        switch (difficulty) {
-            //Easy
-            case 0:
-                return 20;
-            //Medium
-            case 1:
-                return 10;
-            //Hard
-            case 2:
-                return 5;
+        //Discard input until input is an integer
+        while (!_input.hasNextBoolean()) {
+            _input.nextLine(); //Clear input for next request
+            System.out.println("Please enter an integer input!");
         }
 
-        System.out.println("You did not enter a valid difficulty. The difficulty will default to Medium");
-
-        return lives;
+        return _input.nextBoolean();
     }
+
+
+    public static void difficultyMenu(){
+
+        System.out.println("\nYour current settings are:");
+        System.out.println("Number of lives: " + lives);
+        System.out.println("Help enabled: "+help);
+        System.out.println("\n(1) Choose number of lives\n(2) Enable help");
+        switch (getInputInt()){
+            case 1:
+                System.out.println("Choose number of lives");
+                lives = getInputInt();
+                break;
+            case 2:
+                System.out.println("Enable help\n(1) Enable\n(2) Disable");
+                int input = getInputInt();
+                switch (input){
+                    case 1:
+                        help = true;
+                    case 2:
+                        help = false;
+                    default:
+                        System.out.println("You did not enter a correct input. Help not changed");
+                }
+        }
+    }
+
 
     /**
      * Check if a guess is correct
@@ -180,11 +193,28 @@ public class SpeletHelp {
 
         int guess = 0;
 
+        boolean useHelp = false;
 
-        System.out.println("HELP? yes (y) no (n)");
+        if(help){
+            System.out.println("Since help is enabled you can let the computer guess the answer\n(1) Use help\n(2) Skip help");
+            switch (getInputInt()){
+                case 1:
+                    System.out.println("The computer will now guess for you.");
+                    useHelp = true;
+                    break;
+                case 2:
+                    System.out.println("You will now have to guess for yourself.");
+                    break;
+                default:
+                    System.out.println("The computer will not help you because you entered an invalid input.");
 
-        if (input.next().equals("y")) {
+            }
+        }
+
+
+        if (useHelp) {
             guess = (highGuess + lowGuess) / 2;
+            System.out.println("The computer guessed: "+guess);
         } else {
 
             System.out.println("\nGuess a number:");
@@ -196,9 +226,8 @@ public class SpeletHelp {
             }
 
             guess = input.nextInt();
+            System.out.println("You guessed: " + guess);
         }
-
-        System.out.println("You guessed: " + guess);
 
         if (guess == correctNumber) {
             return true;
@@ -250,5 +279,10 @@ public class SpeletHelp {
      */
     public static void winGame(int lives) {
         System.out.println("\nYOU WON with " + lives + " lives left!\n");
+    }
+
+
+    public static void instructions(){
+        System.out.println("Fina instruktioner\nbla bla bla\n");
     }
 }
