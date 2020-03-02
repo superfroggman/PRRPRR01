@@ -50,7 +50,8 @@ public class SpeletHelp {
         }
     }
 
-    static int lives = 10;
+    static int startingLives = 10;
+    static int lives = startingLives;
     static boolean help = false;
     /**
      * Run an entire round of the game
@@ -67,12 +68,15 @@ public class SpeletHelp {
         optionLoop:
         while (true) {
 
+            //reset lives
+            lives = startingLives;
+
             System.out.println("\nYour current settings are:");
             System.out.println("Lower interval limit: " + lowInterval);
             System.out.println("Higher interval limit: " + highInterval);
             System.out.println("Number of lives: " + lives);
             System.out.println("Help enabled: "+help);
-            System.out.println("\n(0) Start game\n(1) Choose lower interval limit\n(2) Choose higher interval limit\n(3) Choose difficulty");
+            System.out.println("\n(0) Start game\n(1) Choose lower interval limit\n(2) Choose higher interval limit\n(3) Choose difficulty\n(4) Instructions");
 
 
             //Select menu option based on user input
@@ -90,11 +94,13 @@ public class SpeletHelp {
                     highInterval = getInputInt();
                     break;
                 case 3:
-                    System.out.println("Select difficulty: easy (0) medium (1) hard (2)");
                     difficultyMenu();
                     break;
+                case 4:
+                    instructions();
+                    break;
                 default:
-                    System.out.println("Please enter an acceptable input!");
+                    System.out.println("Please enter an integer input!");
                     break;
             }
         }
@@ -137,22 +143,10 @@ public class SpeletHelp {
         return _input.nextInt();
     }
 
+
     /**
      *
-     * @return
      */
-    public static boolean getInputBool() {
-
-        //Discard input until input is an integer
-        while (!_input.hasNextBoolean()) {
-            _input.nextLine(); //Clear input for next request
-            System.out.println("Please enter an integer input!");
-        }
-
-        return _input.nextBoolean();
-    }
-
-
     public static void difficultyMenu(){
 
         System.out.println("\nYour current settings are:");
@@ -162,19 +156,24 @@ public class SpeletHelp {
         switch (getInputInt()){
             case 1:
                 System.out.println("Choose number of lives");
-                lives = getInputInt();
+                startingLives = getInputInt();
                 break;
             case 2:
                 System.out.println("Enable help\n(1) Enable\n(2) Disable");
-                int input = getInputInt();
-                switch (input){
+                switch (getInputInt()){
                     case 1:
                         help = true;
+                        System.out.println("Help enabled");
+                        break;
                     case 2:
                         help = false;
+                        System.out.println("Help disabled");
+                        break;
                     default:
                         System.out.println("You did not enter a correct input. Help not changed");
+                        break;
                 }
+                break;
         }
     }
 
@@ -199,11 +198,9 @@ public class SpeletHelp {
             System.out.println("Since help is enabled you can let the computer guess the answer\n(1) Use help\n(2) Skip help");
             switch (getInputInt()){
                 case 1:
-                    System.out.println("The computer will now guess for you.");
                     useHelp = true;
                     break;
                 case 2:
-                    System.out.println("You will now have to guess for yourself.");
                     break;
                 default:
                     System.out.println("The computer will not help you because you entered an invalid input.");
@@ -260,7 +257,7 @@ public class SpeletHelp {
             //Get a random number out of range and add the lower interval limit to get the correct number.
             number = new Random().nextInt(range) + low;
         } catch (Exception e) {
-            System.out.println("Interval was not a positive size. Defaulting to interval 100.");
+            System.out.println("Interval was not a positive size. Defaulting to interval 0-100.");
             number = new Random().nextInt(100);
         }
 
@@ -282,7 +279,13 @@ public class SpeletHelp {
     }
 
 
+    /**
+     * Prints instructions
+     */
     public static void instructions(){
-        System.out.println("Fina instruktioner\nbla bla bla\n");
+        System.out.println("The goal of the game is to guess an interval within an interval.");
+        System.out.println("When you make a guess the game will tell you if the answer is lower or higher, and you can make another guess with that information.");
+        System.out.println("You can choose the interval limits and the amount of lives to play with.");
+        System.out.println("You can also enable help mode, where you can choose for the computer make an educated guess for you.");
     }
 }
