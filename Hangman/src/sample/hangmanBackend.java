@@ -20,7 +20,6 @@ public class hangmanBackend {
             } else {
                 showString += "  ";
             }
-
         }
 
         System.out.println(showString);
