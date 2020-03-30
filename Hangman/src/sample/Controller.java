@@ -16,6 +16,5 @@ public class Controller {
 
     public void initialize() {
         res.getItems().addAll("800x600", "1024x768", "1280x720");
-
     }
 }
