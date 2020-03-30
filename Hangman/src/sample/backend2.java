@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 public class backend2 {
 
-    private static String wordInput = "Cool Word";
     private static int[] charTypes;
     private static ArrayList<Character> guessedLetters = new ArrayList<>();
 
@@ -13,6 +12,7 @@ public class backend2 {
 
         Scanner input = new Scanner(System.in);
 
+        String wordInput = "Cool Word";
         generateWordArray(wordInput);
 
         while (true) {
@@ -31,8 +31,8 @@ public class backend2 {
             ArrayList<Integer> guessPositions = getGuessPosition(wordInput, letterGuessed);
 
             //Change charTypes for guessed letter
-            for (int i = 0; i < guessPositions.size(); i++) {
-                charTypes[guessPositions.get(i)] = 1;
+            for (Integer guessPosition : guessPositions) {
+                charTypes[guessPosition] = 1;
             }
 
             //Win if all letters are gueesed
@@ -42,8 +42,8 @@ public class backend2 {
 
 
             //Print all charTypes
-            for (int i = 0; i < charTypes.length; i++) {
-                System.out.print(charTypes[i]);
+            for (int charType : charTypes) {
+                System.out.print(charType);
             }
         }
     }
@@ -76,7 +76,7 @@ public class backend2 {
      *
      * @param word
      * @param letter
-     * @return
+     * @return guessPositions
      */
     public static ArrayList<Integer> getGuessPosition(String word, char letter) {
 
@@ -100,8 +100,11 @@ public class backend2 {
     public static boolean winCheck(){
         //Check if all letters are guessed
         boolean finished = true;
-        for (int i = 0; i < charTypes.length; i++) {
-            if (charTypes[i] == 0) finished = false;
+        for (int charType : charTypes) {
+            if (charType == 0) {
+                finished = false;
+                break;
+            }
         }
 
         return finished;
