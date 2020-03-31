@@ -5,7 +5,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.text.Text?>
 
-<GridPane fx:controller="sample.Controller"
+<GridPane fx:controller="old.Controller"
           xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
     <padding>
         <Insets top="25" right="25" bottom="10" left="25"/>

@@ -1,21 +1,25 @@
 package sample;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class backend2 {
+public class Backend {
 
     private static int[] charTypes;
     private static ArrayList<Character> guessedLetters = new ArrayList<>();
 
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws IOException{
 
         Scanner input = new Scanner(System.in);
 
-        String wordInput = "Cool Word";
-        generateWordArray(wordInput);
+        String wordInput = Language.getRandomWord(); //Set word to guess to a random word
+
+        generateCharTypes(wordInput);
 
         while (true) {
+            System.out.println(getUnderscoreString(wordInput));
             System.out.println("what you guess?");
             char letterGuessed = input.nextLine().toCharArray()[0];//get first character of input
 
@@ -25,25 +29,15 @@ public class backend2 {
                 continue;
             }
 
-            guessedLetters.add(letterGuessed);
+            guessedLetters.add(letterGuessed); //Add letter to list of guessed letters
 
-            //Get positions of guessed letter
-            ArrayList<Integer> guessPositions = getGuessPosition(wordInput, letterGuessed);
+            changeCharTypes(wordInput, letterGuessed);
 
-            //Change charTypes for guessed letter
-            for (Integer guessPosition : guessPositions) {
-                charTypes[guessPosition] = 1;
-            }
-
-            //Win if all letters are gueesed
+            //Win if all letters are guessed
             if (winCheck()){
+                System.out.println(getUnderscoreString(wordInput));
                 System.out.println("YOU WON!");
-            }
-
-
-            //Print all charTypes
-            for (int charType : charTypes) {
-                System.out.print(charType);
+                break;
             }
         }
     }
@@ -52,9 +46,9 @@ public class backend2 {
     /**
      * Generates arrays from word with values specifying i.e. spaces
      *
-     * @param word
+     * @param word in
      */
-    public static void generateWordArray(String word) {
+    public static void generateCharTypes(String word) {
 
         charTypes = new int[word.length()];
 
@@ -74,8 +68,8 @@ public class backend2 {
     /**
      * Gets all indexes of a character in a string
      *
-     * @param word
-     * @param letter
+     * @param word in
+     * @param letter in
      * @return guessPositions
      */
     public static ArrayList<Integer> getGuessPosition(String word, char letter) {
@@ -96,6 +90,46 @@ public class backend2 {
         return guessPositions;
     }
 
+    /**
+     * Changes charTypes array based on letters in word
+     * @param word in
+     * @param letter in
+     */
+    public static void changeCharTypes(String word, char letter){
+        //Get positions of guessed letter
+        ArrayList<Integer> guessPositions = getGuessPosition(word, letter);
+
+        //Change charTypes for guessed letter
+        for (Integer guessPosition : guessPositions) {
+            charTypes[guessPosition] = 1;
+        }
+
+    }
+
+
+    public static String getUnderscoreString(String word){
+        String out = "";
+
+        //Replaces letters with underscores and spaces with more spaces
+        for (int i = 0; i < word.length(); i++) {
+            int type = charTypes[i];
+
+            switch (type){
+                case 0:
+                    out += "_";
+                    break;
+                case 1:
+                    out += word.charAt(i);
+                    break;
+                case 2:
+                    out += " ";
+                    break;
+            }
+            out += " ";
+        }
+
+        return out;
+    }
 
     public static boolean winCheck(){
         //Check if all letters are guessed
@@ -109,4 +143,7 @@ public class backend2 {
 
         return finished;
     }
+
+
+
 }
