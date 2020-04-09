@@ -710,7 +710,7 @@ remember
 remove
 report
 represent
-Republican
+republican
 require
 research
 resource

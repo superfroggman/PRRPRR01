@@ -10,34 +10,46 @@ public class Backend {
     private static ArrayList<Character> guessedLetters = new ArrayList<>();
 
 
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
 
         Scanner input = new Scanner(System.in);
 
-        String wordInput = Language.getRandomWord(); //Set word to guess to a random word
-
-        generateCharTypes(wordInput);
-
+        //Main loop to be able to play multiple times
         while (true) {
-            System.out.println(getUnderscoreString(wordInput));
-            System.out.println("what you guess?");
-            char letterGuessed = input.nextLine().toCharArray()[0];//get first character of input
 
-            //Check if letter is already guessed
-            if (guessedLetters.contains(letterGuessed)) {
-                System.out.println("You already guessed that letter!");
-                continue;
+            System.out.println("(0) Play\n(1) Exit");
+            if (input.nextInt() == 1) {
+                System.out.println("Bye!");
+                return;
             }
 
-            guessedLetters.add(letterGuessed); //Add letter to list of guessed letters
+            String wordInput = Language.getRandomWord(); //Set word to guess to a random word
+            input.nextLine();//Clear input
 
-            changeCharTypes(wordInput, letterGuessed);
+            generateCharTypes(wordInput);
 
-            //Win if all letters are guessed
-            if (winCheck()){
+
+            while (true) {
                 System.out.println(getUnderscoreString(wordInput));
-                System.out.println("YOU WON!");
-                break;
+                System.out.println("what you guess?");
+                char letterGuessed = input.nextLine().toCharArray()[0];//get first character of input
+
+                //Check if letter is already guessed
+                if (guessedLetters.contains(letterGuessed)) {
+                    System.out.println("You already guessed that letter!");
+                    continue;
+                }
+
+                guessedLetters.add(letterGuessed); //Add letter to list of guessed letters
+
+                changeCharTypes(wordInput, letterGuessed);
+
+                //Win if all letters are guessed
+                if (winCheck()) {
+                    System.out.println(getUnderscoreString(wordInput));
+                    System.out.println("YOU WON!");
+                    break;
+                }
             }
         }
     }
@@ -68,7 +80,7 @@ public class Backend {
     /**
      * Gets all indexes of a character in a string
      *
-     * @param word in
+     * @param word   in
      * @param letter in
      * @return guessPositions
      */
@@ -92,10 +104,11 @@ public class Backend {
 
     /**
      * Changes charTypes array based on letters in word
-     * @param word in
+     *
+     * @param word   in
      * @param letter in
      */
-    public static void changeCharTypes(String word, char letter){
+    public static void changeCharTypes(String word, char letter) {
         //Get positions of guessed letter
         ArrayList<Integer> guessPositions = getGuessPosition(word, letter);
 
@@ -107,14 +120,14 @@ public class Backend {
     }
 
 
-    public static String getUnderscoreString(String word){
+    public static String getUnderscoreString(String word) {
         String out = "";
 
         //Replaces letters with underscores and spaces with more spaces
         for (int i = 0; i < word.length(); i++) {
             int type = charTypes[i];
 
-            switch (type){
+            switch (type) {
                 case 0:
                     out += "_";
                     break;
@@ -131,7 +144,7 @@ public class Backend {
         return out;
     }
 
-    public static boolean winCheck(){
+    public static boolean winCheck() {
         //Check if all letters are guessed
         boolean finished = true;
         for (int charType : charTypes) {
@@ -143,7 +156,6 @@ public class Backend {
 
         return finished;
     }
-
 
 
 }
