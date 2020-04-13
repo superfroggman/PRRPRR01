@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Backend {
 
     private static int[] charTypes;
-    private static ArrayList<Character> guessedLetters = new ArrayList<>();
+    private static ArrayList<Character> guessedLetters;
 
 
     public static void main(String[] args) throws IOException {
@@ -16,6 +16,9 @@ public class Backend {
 
         //Main loop to be able to play multiple times
         while (true) {
+
+            int wrongGuesses = 0;
+            guessedLetters = new ArrayList<>();//Reset guessed letters every round
 
             System.out.println("(0) Play\n(1) Exit");
             if (input.nextInt() == 1) {
@@ -30,6 +33,12 @@ public class Backend {
 
 
             while (true) {
+                System.out.print("\nLetters you already guessed: ");
+                guessedLetters.forEach(letter -> System.out.print(letter + " ")); //Print all letters guessed
+                System.out.println();
+
+                System.out.println("He be hung this much: " + wrongGuesses);
+
                 System.out.println(getUnderscoreString(wordInput));
                 System.out.println("what you guess?");
                 char letterGuessed = input.nextLine().toCharArray()[0];//get first character of input
@@ -42,12 +51,22 @@ public class Backend {
 
                 guessedLetters.add(letterGuessed); //Add letter to list of guessed letters
 
-                changeCharTypes(wordInput, letterGuessed);
+                //Increase number of wrong guesses if the letter is not in the word
+                if (!changeCharTypes(wordInput, letterGuessed)){
+                    wrongGuesses++;
+                }
+
+
+                if(wrongGuesses >= 10){
+                    System.out.println("YOU LOSE!");
+                    System.out.println("The word was: " + wordInput);
+                    break;
+                }
 
                 //Win if all letters are guessed
                 if (winCheck()) {
-                    System.out.println(getUnderscoreString(wordInput));
                     System.out.println("YOU WON!");
+                    System.out.println("The word was: " + wordInput);
                     break;
                 }
             }
@@ -105,10 +124,11 @@ public class Backend {
     /**
      * Changes charTypes array based on letters in word
      *
-     * @param word   in
-     * @param letter in
+     * @param word
+     * @param letter
+     * @return Return true if the guessed letter was in the word
      */
-    public static void changeCharTypes(String word, char letter) {
+    public static boolean changeCharTypes(String word, char letter) {
         //Get positions of guessed letter
         ArrayList<Integer> guessPositions = getGuessPosition(word, letter);
 
@@ -117,6 +137,7 @@ public class Backend {
             charTypes[guessPosition] = 1;
         }
 
+        return !guessPositions.isEmpty();
     }
 
 
