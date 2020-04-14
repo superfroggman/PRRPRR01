@@ -26,7 +26,7 @@ public class Backend {
                 return;
             }
 
-            String wordInput = Language.getRandomWord(); //Set word to guess to a random word
+            String wordInput = OldLanguage.getRandomWord(); //Set word to guess to a random word
             input.nextLine();//Clear input
 
             generateCharTypes(wordInput);
