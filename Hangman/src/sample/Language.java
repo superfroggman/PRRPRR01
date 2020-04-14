@@ -44,29 +44,7 @@ public class Language {
      * @return
      * @throws IOException
      */
-    public static String getRandomWord() throws IOException {
-
-        Scanner input = new Scanner(System.in);
-
-        System.out.println("Select language\n(0) Choose own word\n(1) English\n(2) Swedish\n(3) Lolcatz");
-        String filename = "";
-
-        switch (input.nextInt()) {
-            case 1:
-                filename = "English.txt";
-                break;
-            case 2:
-                filename = "Swedish.txt";
-                break;
-            case 3:
-                filename = "Lolcatz.txt";
-                break;
-            case 0:
-                System.out.println("Choose word/phrase");
-                input.nextLine();//Clear input
-                return input.nextLine();
-        }
-
+    public static String getRandomWord(String filename) throws IOException {
         ArrayList<String> words = getWordArray(filename);
 
         return words.get(new Random().nextInt(words.size()));

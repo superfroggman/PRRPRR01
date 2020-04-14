@@ -1,5 +1,7 @@
 package sample;
 
+import old.OldLanguage;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;

@@ -24,4 +24,7 @@
         <Button text="submit"
                 onAction="#handleSubmitButtonAction"/>
     </HBox>
+
+    <Text text="word will be here temp"
+          GridPane.columnIndex="0" GridPane.rowIndex="4"/>
 </GridPane>
