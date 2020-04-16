@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Text?>
 
 <GridPane fx:controller="sample.Controller" xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
-    <GridPane fx:id="mainMenu">
+    <GridPane fx:id="menuScene">
         <padding>
             <Insets top="25" right="25" bottom="10" left="25"/>
         </padding>
@@ -18,19 +18,32 @@
         <ComboBox fx:id="languageSelect" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
 
         <HBox spacing="10" alignment="bottom_right" GridPane.columnIndex="0" GridPane.rowIndex="3">
-            <Button text="submit"
-                    onAction="#handleSubmitButtonAction"/>
+            <Button text="submit" onAction="#menuSubmitPressed"/>
         </HBox>
-
-        <Text fx:id="wordText" text="word will be here temp" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
     </GridPane>
 
-    <GridPane fx:id="nextScene">
+
+    <GridPane fx:id="chooseWordScene">
         <padding>
             <Insets top="25" right="25" bottom="10" left="25"/>
         </padding>
 
-        <Text text="Hangman!" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+        <Text text="Choose word!" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+
+        <TextField fx:id="chooseWordInput" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+
+        <Button text="submit" onAction="#chooseWordSubmitPressed" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+    </GridPane>
+
+
+    <!--Comment-->
+    <GridPane fx:id="guessScene">
+        <padding>
+            <Insets top="25" right="25" bottom="10" left="25"/>
+        </padding>
+
+        <Text text="Guess stuff!" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+        <Text fx:id="tempWord" text="word will be here temp" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
     </GridPane>
 
 </GridPane>

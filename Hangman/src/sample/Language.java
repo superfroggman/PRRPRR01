@@ -23,12 +23,11 @@ public class Language {
 
         String folder = "src/sample/languages/";
 
-        //English words from https://www.ef.com/wwen/english-resources/english-vocabulary/top-1000-words/
-        BufferedReader reader = new BufferedReader(new FileReader(folder + filename));
+        BufferedReader reader = new BufferedReader(new FileReader(folder + filename)); //Read selected file
 
+        //Add all words from file to an array
         String line;
         while ((line = reader.readLine()) != null) {
-            //line = line.toUpperCase();
             words.add(line);
         }
 
@@ -39,7 +38,7 @@ public class Language {
 
 
     /**
-     * Gets random word from array of words
+     * Gets random word in uppercase from array of words
      *
      * @return
      * @throws IOException
@@ -47,7 +46,7 @@ public class Language {
     public static String getRandomWord(String filename) throws IOException {
         ArrayList<String> words = getWordArray(filename);
 
-        return words.get(new Random().nextInt(words.size()));
+        return words.get(new Random().nextInt(words.size())).toUpperCase();
 
     }
 }
