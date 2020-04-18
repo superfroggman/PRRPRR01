@@ -29,9 +29,13 @@ public class Controller {
     private GridPane guessScene;
     @FXML
     private Text guessWord;
+    @FXML
+    private TextField guessInput;
 
 
-    String wordToGuess = "";
+    private String wordToGuess = "";
+
+    private int wrongGuesses = 0;
 
 
     /**
@@ -43,7 +47,6 @@ public class Controller {
 
         fillLanguageSelectBox();
     }
-
 
     /**
      * Adds all languages with language files to the selectable list of languages + option to choose own word
@@ -80,7 +83,7 @@ public class Controller {
             //Change active scene
             menuScene.setVisible(false);
             guessScene.setVisible(true);
-            updateGuessScene();
+            setupGuessScene();
         }
     }
 
@@ -95,7 +98,7 @@ public class Controller {
 
         if (input == null) return; //Check that text field is not empty
         wordToGuess = input;
-        updateGuessScene();
+        setupGuessScene();
 
         //Change active scene
         chooseWordScene.setVisible(false);
@@ -103,11 +106,15 @@ public class Controller {
     }
 
 
-    public void updateGuessScene() {
+    public void setupGuessScene() {
         guessWord.setText(wordToGuess);
+        NewBackend.initialSetup(wordToGuess);
     }
 
     public void guessSubmitPressed(ActionEvent actionEvent) {
+        System.out.println(guessInput.getText());
+        NewBackend.makeGuess(guessInput.getText().toCharArray()[0]);
 
+        wrongGuesses = NewBackend.wrongGuesses;
     }
 }

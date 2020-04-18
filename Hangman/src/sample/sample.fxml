@@ -45,7 +45,7 @@
         <Text text="Guess stuff!" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
         <Text fx:id="guessWord" text="temp" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
         <TextField fx:id="guessInput" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-        <Button text="submit" onAction="#guessSubmitPressed" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <Button text="submit" onAction="#guessSubmitPressed" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
     </GridPane>
 
 </GridPane>

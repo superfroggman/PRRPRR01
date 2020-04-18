@@ -4,21 +4,47 @@ import java.util.ArrayList;
 
 public class NewBackend {
 
+    public static String wordToGuess;
     public static int[] charTypes;
     public static ArrayList<Character> guessedLetters;
 
     public static int wrongGuesses = 0;
 
 
-    public static void initialSetup(String wordToGuess){
+    public static void initialSetup(String wordIn){
         int wrongGuesses = 0;
         guessedLetters = new ArrayList<>();//Reset guessed letters every round
 
+        wordToGuess = wordIn;
         generateCharTypes(wordToGuess);
     }
 
     public static void makeGuess(char guess){
 
+        //Check if letter is already guessed
+        if (guessedLetters.contains(guess)) {
+            System.out.println("LETTER ALREADY GUESSED");
+            return;
+        }
+
+        guessedLetters.add(guess); //Add letter to list of guessed letters
+
+        //Increase number of wrong guesses if the letter is not in the word
+        if (!changeCharTypes(wordToGuess, guess)){
+            wrongGuesses++;
+        }
+
+        //Lose if man is hung
+        if(wrongGuesses >= 10){
+            //TODO: Losing functionality
+            System.out.println("LOSE");
+        }
+
+        //Win if all letters are guessed
+        if (winCheck()) {
+            //TODO: Winning functionality
+            System.out.println("WIN");
+        }
     }
 
 
@@ -44,4 +70,60 @@ public class NewBackend {
         }
     }
 
+    /**
+     * Changes charTypes array based on letters in word
+     *
+     * @param word
+     * @param letter
+     * @return Return true if the guessed letter was in the word
+     */
+    public static boolean changeCharTypes(String word, char letter) {
+        //Get positions of guessed letter
+        ArrayList<Integer> guessPositions = getGuessPosition(word, letter);
+
+        //Change charTypes for guessed letter
+        for (Integer guessPosition : guessPositions) {
+            charTypes[guessPosition] = 1;
+        }
+
+        return !guessPositions.isEmpty();
+    }
+
+    /**
+     * Gets all indexes of a character in a string
+     *
+     * @param word   in
+     * @param letter in
+     * @return guessPositions
+     */
+    public static ArrayList<Integer> getGuessPosition(String word, char letter) {
+
+        ArrayList<Integer> guessPositions = new ArrayList<>();
+
+        letter = Character.toLowerCase(letter); //make the character lowercase
+        word = word.toLowerCase(); //make the character lowercase
+
+        int index = word.indexOf(letter); //gets first index
+
+        //adds index to list there and searches for another until the position returns -1(when no additional characters can be found)
+        while (index >= 0) {
+            guessPositions.add(index);
+            index = word.indexOf(letter, index + 1);
+        }
+
+        return guessPositions;
+    }
+
+    public static boolean winCheck() {
+        //Check if all letters are guessed
+        boolean finished = true;
+        for (int charType : charTypes) {
+            if (charType == 0) {
+                finished = false;
+                break;
+            }
+        }
+
+        return finished;
+    }
 }
