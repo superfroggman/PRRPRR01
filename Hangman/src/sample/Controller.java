@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
@@ -27,11 +28,10 @@ public class Controller {
     @FXML
     private GridPane guessScene;
     @FXML
-    private Text tempWord;
+    private Text guessWord;
 
 
-
-    String wordToGuess = new String();
+    String wordToGuess = "";
 
 
     /**
@@ -68,6 +68,8 @@ public class Controller {
     public void menuSubmitPressed(ActionEvent actionEvent) throws IOException {
         System.out.println(languageSelect.getValue());
 
+        if (languageSelect.getValue() == null) return;
+
         if (languageSelect.getValue().equals("Choose word")) {
             menuScene.setVisible(false);
             chooseWordScene.setVisible(true);
@@ -78,24 +80,34 @@ public class Controller {
             //Change active scene
             menuScene.setVisible(false);
             guessScene.setVisible(true);
+            updateGuessScene();
         }
     }
 
     /**
      * Move to guessing scene when word is chosen
+     *
      * @param actionEvent
      */
     public void chooseWordSubmitPressed(ActionEvent actionEvent) {
         String input = chooseWordInput.getText(); //Get chosen word from input box
         System.out.println(input);
 
-        if (input!=null){ //Check that text field is not empty
-            //Change active scene
-            chooseWordScene.setVisible(false);
-            guessScene.setVisible(true);
-        }
+        if (input == null) return; //Check that text field is not empty
+        wordToGuess = input;
+        updateGuessScene();
+
+        //Change active scene
+        chooseWordScene.setVisible(false);
+        guessScene.setVisible(true);
     }
 
 
-    
+    public void updateGuessScene() {
+        guessWord.setText(wordToGuess);
+    }
+
+    public void guessSubmitPressed(ActionEvent actionEvent) {
+
+    }
 }
