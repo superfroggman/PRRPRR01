@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
@@ -30,12 +29,12 @@ public class Controller {
     @FXML
     private Text guessWord;
     @FXML
+    private Text guessLetters;
+    @FXML
     private TextField guessInput;
 
 
     private String wordToGuess = "";
-
-    private int wrongGuesses = 0;
 
 
     /**
@@ -51,7 +50,7 @@ public class Controller {
     /**
      * Adds all languages with language files to the selectable list of languages + option to choose own word
      */
-    public void fillLanguageSelectBox() {
+    private void fillLanguageSelectBox() {
         File[] languageFiles = new File("src/sample/languages/").listFiles(); //Gets all languages from which files exist
 
         //Loop through all language files
@@ -105,16 +104,24 @@ public class Controller {
         guessScene.setVisible(true);
     }
 
-
-    public void setupGuessScene() {
+    private void setupGuessScene() {
         guessWord.setText(wordToGuess);
-        NewBackend.initialSetup(wordToGuess);
+        Backend.initialSetup(wordToGuess);
     }
 
     public void guessSubmitPressed(ActionEvent actionEvent) {
         System.out.println(guessInput.getText());
-        NewBackend.makeGuess(guessInput.getText().toCharArray()[0]);
+        Backend.makeGuess(guessInput.getText().toCharArray()[0]);
 
-        wrongGuesses = NewBackend.wrongGuesses;
+        guessWord.setText(Backend.getUnderscoreString());
+        guessLetters.setText("Guessed Letters: " + Backend.getGuessedLetters());
+    }
+
+    public static void win() {
+        System.out.println("GUI WIN");
+    }
+
+    public static void lose() {
+        System.out.println("GUI LOSE");
     }
 }
