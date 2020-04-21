@@ -49,6 +49,25 @@
         <Button text="submit" onAction="#guessSubmitPressed" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
     </GridPane>
 
+
+    <GridPane fx:id="winScene">
+        <padding>
+            <Insets top="25" right="25" bottom="10" left="25"/>
+        </padding>
+
+        <Text text="You win!" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+        <Button text="Main Menu" onAction="#guessSubmitPressed" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+    </GridPane>
+
+    <GridPane fx:id="loseScene">
+        <padding>
+            <Insets top="25" right="25" bottom="10" left="25"/>
+        </padding>
+
+        <Text text="You lose!" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+        <Button text="Main Menu" onAction="#guessSubmitPressed" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+    </GridPane>
+
 </GridPane>
 
 

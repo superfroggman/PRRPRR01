@@ -12,6 +12,7 @@ import java.io.IOException;
 
 public class Controller {
 
+
     //Imports objects with ids from fxml
     @FXML
     private GridPane menuScene;
@@ -33,6 +34,12 @@ public class Controller {
     @FXML
     private TextField guessInput;
 
+    @FXML
+    private GridPane winScene;
+
+    @FXML
+    private GridPane loseScene;
+
 
     private String wordToGuess = "";
 
@@ -43,6 +50,8 @@ public class Controller {
     public void initialize() {
         chooseWordScene.setVisible(false);
         guessScene.setVisible(false);
+        winScene.setVisible(false);
+        loseScene.setVisible(false);
 
         fillLanguageSelectBox();
     }
@@ -105,8 +114,9 @@ public class Controller {
     }
 
     private void setupGuessScene() {
-        guessWord.setText(wordToGuess);
+        guessWord.setText(Backend.getUnderscoreString());
         Backend.initialSetup(wordToGuess);
+        guessLetters.setText("Guessed Letters: ");
     }
 
     public void guessSubmitPressed(ActionEvent actionEvent) {
@@ -115,13 +125,5 @@ public class Controller {
 
         guessWord.setText(Backend.getUnderscoreString());
         guessLetters.setText("Guessed Letters: " + Backend.getGuessedLetters());
-    }
-
-    public static void win() {
-        System.out.println("GUI WIN");
-    }
-
-    public static void lose() {
-        System.out.println("GUI LOSE");
     }
 }

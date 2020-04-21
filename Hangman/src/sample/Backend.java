@@ -13,6 +13,7 @@ public class Backend {
 
 
     public static void initialSetup(String wordIn){
+        System.out.println();
         int wrongGuesses = 0;
         guessedLetters = new ArrayList<>();//Reset guessed letters every round
 
@@ -37,12 +38,12 @@ public class Backend {
 
         //Lose if man is hung
         if(wrongGuesses >= 10){
-            Controller.lose();
+            //Controller.lose();
         }
 
         //Win if all letters are guessed
         if (winCheck()) {
-            Controller.win();
+            //Controller.win();
         }
     }
 
