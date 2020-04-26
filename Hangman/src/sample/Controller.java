@@ -114,8 +114,8 @@ public class Controller {
     }
 
     private void setupGuessScene() {
-        guessWord.setText(Backend.getUnderscoreString());
         Backend.initialSetup(wordToGuess);
+        guessWord.setText(Backend.getUnderscoreString());
         guessLetters.setText("Guessed Letters: ");
     }
 

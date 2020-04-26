@@ -13,7 +13,7 @@ public class Backend {
 
 
     public static void initialSetup(String wordIn){
-        System.out.println();
+        System.out.println("Setting up backend");
         int wrongGuesses = 0;
         guessedLetters = new ArrayList<>();//Reset guessed letters every round
 
