@@ -1,9 +1,12 @@
 package sample;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
@@ -11,7 +14,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class Controller {
-
 
     //Imports objects with ids from fxml
     @FXML
@@ -55,6 +57,7 @@ public class Controller {
 
         fillLanguageSelectBox();
     }
+
 
     /**
      * Adds all languages with language files to the selectable list of languages + option to choose own word
@@ -113,6 +116,8 @@ public class Controller {
         guessScene.setVisible(true);
     }
 
+
+
     private void setupGuessScene() {
         Backend.initialSetup(wordToGuess);
         guessWord.setText(Backend.getUnderscoreString());
@@ -121,9 +126,37 @@ public class Controller {
 
     public void guessSubmitPressed(ActionEvent actionEvent) {
         System.out.println(guessInput.getText());
-        Backend.makeGuess(guessInput.getText().toCharArray()[0]);
+        Backend.makeGuess(guessInput.getText().charAt(0));
 
         guessWord.setText(Backend.getUnderscoreString());
         guessLetters.setText("Guessed Letters: " + Backend.getGuessedLetters());
+
+        guessInput.setText(""); //clear guessfield
+
+        if(Backend.win){
+            win();
+        }
+        if(Backend.lose){
+            lose();
+        }
+
+        System.out.println("Win: " + Backend.win);
+        System.out.println("Lose: " + Backend.lose);
+    }
+
+    private void win(){
+        guessScene.setVisible(false);
+        winScene.setVisible(true);
+    }
+
+    private void lose(){
+        guessScene.setVisible(false);
+        loseScene.setVisible(true);
+    }
+
+    public void mainMenuPressed(ActionEvent actionEvent) {
+        winScene.setVisible(false);
+        loseScene.setVisible(false);
+        menuScene.setVisible(true);
     }
 }

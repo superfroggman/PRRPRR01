@@ -11,10 +11,13 @@ public class Backend {
 
     public static int wrongGuesses = 0;
 
+    public static boolean win = false;
+    public static boolean lose = false;
+
 
     public static void initialSetup(String wordIn){
         System.out.println("Setting up backend");
-        int wrongGuesses = 0;
+        wrongGuesses = 0;
         guessedLetters = new ArrayList<>();//Reset guessed letters every round
 
         wordToGuess = wordIn;
@@ -38,13 +41,11 @@ public class Backend {
 
         //Lose if man is hung
         if(wrongGuesses >= 10){
-            //Controller.lose();
+            lose=true;
         }
 
         //Win if all letters are guessed
-        if (winCheck()) {
-            //Controller.win();
-        }
+        win = winCheck();
     }
 
 
@@ -61,12 +62,12 @@ public class Backend {
         for (int i = 0; i < word.length(); i++) {
 
             //Set value to 0 when not a space and 2 when is a space
-            if (word.charAt(i) != ' ') {
+            if (Character.isLetter(word.charAt(i))) {
                 charTypes[i] = 0;
             } else {
                 charTypes[i] = 2;
+                System.out.println("weird character");
             }
-
         }
     }
 
@@ -139,10 +140,8 @@ public class Backend {
                     out += "_";
                     break;
                 case 1:
-                    out += wordToGuess.charAt(i);
-                    break;
                 case 2:
-                    out += " ";
+                    out += wordToGuess.charAt(i);
                     break;
             }
             out += " ";
