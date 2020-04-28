@@ -17,7 +17,12 @@ public class Backend {
 
     public static void initialSetup(String wordIn){
         System.out.println("Setting up backend");
+
+        //reset variables
         wrongGuesses = 0;
+        win = false;
+        lose = false;
+
         guessedLetters = new ArrayList<>();//Reset guessed letters every round
 
         wordToGuess = wordIn;
@@ -61,12 +66,11 @@ public class Backend {
         //loop through all letters
         for (int i = 0; i < word.length(); i++) {
 
-            //Set value to 0 when not a space and 2 when is a space
+            //Set value to 0 when character is a letter and 2 when character is not a letter
             if (Character.isLetter(word.charAt(i))) {
                 charTypes[i] = 0;
             } else {
                 charTypes[i] = 2;
-                System.out.println("weird character");
             }
         }
     }

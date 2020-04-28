@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -29,6 +31,8 @@ public class Controller {
 
     @FXML
     private GridPane guessScene;
+    @FXML
+    private ImageView guessImage;
     @FXML
     private Text guessWord;
     @FXML
@@ -89,7 +93,7 @@ public class Controller {
             chooseWordScene.setVisible(true);
         } else {
             wordToGuess = Language.getRandomWord(languageSelect.getValue().toString() + ".txt"); //Get a random word from the language file selected
-            System.out.println("The word is: " + wordToGuess);
+            //System.out.println("The word is: " + wordToGuess);
 
             //Change active scene
             menuScene.setVisible(false);
@@ -125,13 +129,26 @@ public class Controller {
     }
 
     public void guessSubmitPressed(ActionEvent actionEvent) {
-        System.out.println(guessInput.getText());
+        String input = guessInput.getText();
+        System.out.println("input: "+input);
+
+        //skip guess if no input was given
+        if(input.isEmpty()){
+            System.out.println("input was null");
+            return;
+        }
+
         Backend.makeGuess(guessInput.getText().charAt(0));
 
         guessWord.setText(Backend.getUnderscoreString());
         guessLetters.setText("Guessed Letters: " + Backend.getGuessedLetters());
 
         guessInput.setText(""); //clear guessfield
+
+        Image aaa = new Image("/home/anton/Documents/GitHub/superfroggman/Hangman/src/sample/images/hang11.png", 100, 100, false, false);
+        System.out.println(aaa);
+
+        guessImage.setImage(aaa);
 
         if(Backend.win){
             win();

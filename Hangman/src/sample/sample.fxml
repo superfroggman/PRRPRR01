@@ -5,6 +5,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <GridPane fx:controller="sample.Controller" xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" style="-fx-background-color: gray;" fx:id="primary">
     <GridPane fx:id="menuScene">
         <padding>
@@ -41,6 +43,12 @@
         <padding>
             <Insets top="25" right="25" bottom="10" left="25"/>
         </padding>
+
+        <ImageView fx:id="guessImage" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <image>
+                <Image url="@images/hang1.png"></Image>
+            </image>
+        </ImageView>
 
         <Text text="Guess stuff!" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
         <Text fx:id="guessWord" text="temp" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
