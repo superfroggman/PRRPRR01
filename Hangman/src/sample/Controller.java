@@ -1,14 +1,10 @@
 package sample;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
@@ -23,8 +19,7 @@ public class Controller {
     @FXML
     private GridPane menuScene;
     @FXML
-    private ComboBox languageSelect;
-
+    private ComboBox<String> languageSelect;
 
     @FXML
     private GridPane chooseWordScene;
@@ -56,62 +51,59 @@ public class Controller {
      * Initializes the scene and sets up everything
      */
     public void initialize() {
+        //Hide all scenes other than menu scene
         chooseWordScene.setVisible(false);
         guessScene.setVisible(false);
         winScene.setVisible(false);
         loseScene.setVisible(false);
 
-        fillLanguageSelectBox();
+        fillComboBoxes();
     }
 
 
     /**
      * Adds all languages with language files to the selectable list of languages + option to choose own word
      */
-    private void fillLanguageSelectBox() {
+    private void fillComboBoxes() {
         File[] languageFiles = new File("src/sample/languages/").listFiles(); //Gets all languages from which files exist
 
         //Loop through all language files
-        for (int i = 0; i < languageFiles.length; i++) {
-            languageSelect.getItems().addAll(languageFiles[i].getName().substring(0, languageFiles[i].getName().length() - 4)); //Add language to selectable list, without filesystem position and extension name
+        for (File file : languageFiles) {
+            languageSelect.getItems().addAll(file.getName().substring(0, file.getName().length() - 4)); //Add language to selectable list, without filesystem position and extension name
         }
 
-        languageSelect.getItems().addAll("Choose word");
+        languageSelect.getItems().addAll("Choose word"); //Add option for user to choose own word
     }
 
     /**
      * Goes to next scene when submit button in main menu is pressed
      *
-     * @param actionEvent
      * @throws IOException
      */
-    public void menuSubmitPressed(ActionEvent actionEvent) throws IOException {
-        System.out.println(languageSelect.getValue());
+    public void menuSubmitPressed() throws IOException {
+        if (languageSelect.getValue() == null) return; //Return if no language is selected
 
-        if (languageSelect.getValue() == null) return;
-
-        if (languageSelect.getValue().equals("Choose word")) {
+        if (languageSelect.getValue().equals("Choose word")) { //Check if user chose to enter own word
+            //Change active scene
             menuScene.setVisible(false);
             chooseWordScene.setVisible(true);
         } else {
-            wordToGuess = Language.getRandomWord(languageSelect.getValue().toString() + ".txt"); //Get a random word from the language file selected
-            //System.out.println("The word is: " + wordToGuess);
+            wordToGuess = Language.getRandomWord(languageSelect.getValue() + ".txt"); //Get a random word from the language file selected
+
+            setupGuessScene();
 
             //Change active scene
             menuScene.setVisible(false);
             guessScene.setVisible(true);
-            setupGuessScene();
+
         }
     }
 
     /**
      * Move to guessing scene when word is chosen
-     *
-     * @param actionEvent
      */
-    public void chooseWordSubmitPressed(ActionEvent actionEvent) {
+    public void chooseWordSubmitPressed() {
         String input = chooseWordInput.getText(); //Get chosen word from input box
-        System.out.println(input);
 
         if (input == null) return; //Check that text field is not empty
         wordToGuess = input;
@@ -123,57 +115,64 @@ public class Controller {
     }
 
 
-
+    /**
+     * Sets up scene for guessing
+     */
     private void setupGuessScene() {
         Backend.initialSetup(wordToGuess);
         guessWord.setText(Backend.getUnderscoreString());
         guessLetters.setText("Guessed Letters: ");
     }
 
-    public void guessSubmitPressed(ActionEvent actionEvent) throws FileNotFoundException {
-        String input = guessInput.getText();
-        System.out.println("input: "+input);
+    /**
+     * Handles input from guessing scene, checks if guess was correct and changes fields accordingly
+     *
+     * @throws FileNotFoundException
+     */
+    public void guessSubmitPressed() throws FileNotFoundException {
 
-        //skip guess if no input was given
-        if(input.isEmpty()){
+        String input = guessInput.getText(); //Gets input from text field
+
+        //Skip guess if no input was given
+        if (input.isEmpty()) {
             System.out.println("input was null");
             return;
         }
 
         Backend.makeGuess(guessInput.getText().charAt(0));
 
+        //Update GUI
         guessWord.setText(Backend.getUnderscoreString());
         guessLetters.setText("Guessed Letters: " + Backend.getGuessedLetters());
 
-        guessInput.setText(""); //clear guessfield
+        guessInput.setText(""); //Clear guess field
 
-        Image image = new Image(new FileInputStream("src/sample/images/hang11.png"));
-
-        System.out.println("image: " + image);
+        //Update man being hung
+        Image image = new Image(new FileInputStream("src/sample/images/default/hang11.png"));
         guessImage.setImage(image);
 
-        if(Backend.win){
+        if (Backend.win) {
             win();
         }
-        if(Backend.lose){
+        if (Backend.lose) {
             lose();
         }
-
-        System.out.println("Win: " + Backend.win);
-        System.out.println("Lose: " + Backend.lose);
     }
 
-    private void win(){
+    private void win() {
         guessScene.setVisible(false);
         winScene.setVisible(true);
     }
 
-    private void lose(){
+    private void lose() {
         guessScene.setVisible(false);
         loseScene.setVisible(true);
     }
 
-    public void mainMenuPressed(ActionEvent actionEvent) {
+    /**
+     * Handle button to return to main menu, changing active scenes
+     */
+    public void mainMenuPressed() {
         winScene.setVisible(false);
         loseScene.setVisible(false);
         menuScene.setVisible(true);

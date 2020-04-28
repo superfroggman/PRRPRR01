@@ -46,7 +46,7 @@
 
         <ImageView fx:id="guessImage" GridPane.columnIndex="0" GridPane.rowIndex="0">
             <image>
-                <Image url="@images/hang1.png"></Image>
+                <Image url="@images/default/hang1.png"></Image>
             </image>
         </ImageView>
 
