@@ -50,11 +50,11 @@
             </image>
         </ImageView>
 
-        <Text text="Guess stuff!" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
-        <Text fx:id="guessWord" text="temp" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-        <Text fx:id="guessLetters" text="temp" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-        <TextField fx:id="guessInput" onAction="#guessSubmitPressed" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-        <Button text="submit" onAction="#guessSubmitPressed" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <Text text="Guess stuff!" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <Text fx:id="guessWord" text="temp" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+        <Text fx:id="guessLetters" text="temp" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+        <TextField fx:id="guessInput" onAction="#guessSubmitPressed" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
+        <Button text="submit" onAction="#guessSubmitPressed" GridPane.columnIndex="0" GridPane.rowIndex="8"/>
     </GridPane>
 
 

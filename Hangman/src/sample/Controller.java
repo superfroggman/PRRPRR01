@@ -13,6 +13,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Controller {
@@ -128,7 +130,7 @@ public class Controller {
         guessLetters.setText("Guessed Letters: ");
     }
 
-    public void guessSubmitPressed(ActionEvent actionEvent) {
+    public void guessSubmitPressed(ActionEvent actionEvent) throws FileNotFoundException {
         String input = guessInput.getText();
         System.out.println("input: "+input);
 
@@ -145,10 +147,10 @@ public class Controller {
 
         guessInput.setText(""); //clear guessfield
 
-        Image aaa = new Image("/home/anton/Documents/GitHub/superfroggman/Hangman/src/sample/images/hang11.png", 100, 100, false, false);
-        System.out.println(aaa);
+        Image image = new Image(new FileInputStream("src/sample/images/hang11.png"));
 
-        guessImage.setImage(aaa);
+        System.out.println("image: " + image);
+        guessImage.setImage(image);
 
         if(Backend.win){
             win();
