@@ -1,16 +1,13 @@
 package sample;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,6 +15,8 @@ import java.util.ArrayList;
 public class Controller {
 
     //Imports objects with ids from fxml
+    @FXML
+    private GridPane main;
     @FXML
     private GridPane menuScene;
     @FXML
@@ -54,7 +53,7 @@ public class Controller {
     /**
      * Initializes the scene and sets up everything
      */
-    public void initialize() {
+    public void initialize() throws IOException {
         //Hide all scenes other than menu scene
         chooseWordScene.setVisible(false);
         guessScene.setVisible(false);
@@ -62,6 +61,8 @@ public class Controller {
         loseScene.setVisible(false);
 
         fillComboBoxes();
+
+        TexturePack.selectPack("default", main);
     }
 
 
@@ -118,7 +119,7 @@ public class Controller {
     /**
      * Move to guessing scene when word is chosen
      */
-    public void chooseWordSubmitPressed() {
+    public void chooseWordSubmitPressed() throws FileNotFoundException {
         String input = chooseWordInput.getText(); //Get chosen word from input box
 
         if (input == null) return; //Check that text field is not empty
@@ -134,10 +135,12 @@ public class Controller {
     /**
      * Sets up scene for guessing
      */
-    private void setupGuessScene() {
+    private void setupGuessScene() throws FileNotFoundException {
         Backend.initialSetup(wordToGuess);
         guessWord.setText(Backend.getUnderscoreString());
         guessLetters.setText("Guessed Letters: ");
+
+        guessImage.setImage(TexturePack.getCurrentImage(1));
     }
 
     /**
@@ -163,9 +166,9 @@ public class Controller {
 
         guessInput.setText(""); //Clear guess field
 
-        //Update man being hung
-        Image image = new Image(new FileInputStream("src/sample/images/default/hang11.png"));
-        guessImage.setImage(image);
+        //Update image of man being hung
+        guessImage.setImage(TexturePack.getCurrentImage(Backend.wrongGuesses + 1));
+
 
         if (Backend.win) {
             win();
@@ -195,7 +198,6 @@ public class Controller {
     }
 
     public void packSelected() {
-
-        TexturePack.selectPack(menuPack.getValue());
+        TexturePack.selectPack(menuPack.getValue(), main);
     }
 }
