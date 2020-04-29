@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -12,6 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Controller {
 
@@ -19,7 +21,9 @@ public class Controller {
     @FXML
     private GridPane menuScene;
     @FXML
-    private ComboBox<String> languageSelect;
+    private ComboBox<String> menuPack;
+    @FXML
+    private ComboBox<String> menuLanguage;
 
     @FXML
     private GridPane chooseWordScene;
@@ -69,10 +73,22 @@ public class Controller {
 
         //Loop through all language files
         for (File file : languageFiles) {
-            languageSelect.getItems().addAll(file.getName().substring(0, file.getName().length() - 4)); //Add language to selectable list, without filesystem position and extension name
+            menuLanguage.getItems().addAll(file.getName().substring(0, file.getName().length() - 4)); //Add language to selectable list, without filesystem position and extension name
         }
 
-        languageSelect.getItems().addAll("Choose word"); //Add option for user to choose own word
+        menuLanguage.getItems().addAll("Choose word"); //Add option for user to choose own word
+
+        menuLanguage.setValue(menuLanguage.getItems().get(0));
+
+
+        ArrayList<File> packs = TexturePack.getPacks(); //Gets all packs from which folders exist
+
+        //Loop through all packs
+        for (File pack : packs) {
+            System.out.println(pack);
+            menuPack.getItems().addAll(pack.getName());
+        }
+        menuPack.setValue(packs.get(0).getName());
     }
 
     /**
@@ -81,14 +97,14 @@ public class Controller {
      * @throws IOException
      */
     public void menuSubmitPressed() throws IOException {
-        if (languageSelect.getValue() == null) return; //Return if no language is selected
+        if (menuLanguage.getValue() == null) return; //Return if no language is selected
 
-        if (languageSelect.getValue().equals("Choose word")) { //Check if user chose to enter own word
+        if (menuLanguage.getValue().equals("Choose word")) { //Check if user chose to enter own word
             //Change active scene
             menuScene.setVisible(false);
             chooseWordScene.setVisible(true);
         } else {
-            wordToGuess = Language.getRandomWord(languageSelect.getValue() + ".txt"); //Get a random word from the language file selected
+            wordToGuess = Language.getRandomWord(menuLanguage.getValue() + ".txt"); //Get a random word from the language file selected
 
             setupGuessScene();
 
@@ -176,5 +192,10 @@ public class Controller {
         winScene.setVisible(false);
         loseScene.setVisible(false);
         menuScene.setVisible(true);
+    }
+
+    public void packSelected() {
+
+        TexturePack.selectPack(menuPack.getValue());
     }
 }

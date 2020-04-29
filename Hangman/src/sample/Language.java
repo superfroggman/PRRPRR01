@@ -46,6 +46,5 @@ public class Language {
         ArrayList<String> words = getWordArray(filename);
 
         return words.get(new Random().nextInt(words.size())).toUpperCase();
-
     }
 }

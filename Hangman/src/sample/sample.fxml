@@ -7,7 +7,8 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<GridPane fx:controller="sample.Controller" xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" style="-fx-background-color: gray;" fx:id="primary">
+<GridPane fx:controller="sample.Controller" xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" style="-fx-background-color: gray;">
+
     <GridPane fx:id="menuScene">
         <padding>
             <Insets top="25" right="25" bottom="10" left="25"/>
@@ -15,11 +16,13 @@
 
         <Text text="Hangman!" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
 
-        <Text text="Word from language or own word:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <Text text="Choose texture pack:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <ComboBox fx:id="menuPack" onAction="#packSelected" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
 
-        <ComboBox fx:id="languageSelect" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <Text text="Word from language or own word:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+        <ComboBox fx:id="menuLanguage" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
 
-        <HBox spacing="10" alignment="bottom_right" GridPane.columnIndex="0" GridPane.rowIndex="3">
+        <HBox spacing="10" alignment="bottom_right" GridPane.columnIndex="0" GridPane.rowIndex="7">
             <Button text="submit" onAction="#menuSubmitPressed"/>
         </HBox>
     </GridPane>
@@ -44,11 +47,7 @@
             <Insets top="25" right="25" bottom="10" left="25"/>
         </padding>
 
-        <ImageView fx:id="guessImage" GridPane.columnIndex="0" GridPane.rowIndex="0">
-            <image>
-                <Image url="@images/default/hang1.png"></Image>
-            </image>
-        </ImageView>
+        <ImageView fx:id="guessImage" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
 
         <Text text="Guess stuff!" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
         <Text fx:id="guessWord" text="temp" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
