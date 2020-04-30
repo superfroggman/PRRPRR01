@@ -30,11 +30,11 @@ public class TexturePack {
         main.getStylesheets().add("sample/packs/" + pack + "/style.css");
     }
 
-    public static void loadDefaultPack(GridPane main) {
-        main.getStylesheets().add("sample/packs/default/style.css");
+    public static Image getImageByNumber(int n) throws FileNotFoundException {
+        return new Image(new FileInputStream(("src/sample/packs/" + selectedPack + "/images/" + n + ".png")));
     }
 
-    public static Image getCurrentImage(int n) throws FileNotFoundException {
-        return new Image(new FileInputStream(("src/sample/packs/" + selectedPack + "/images/" + n + ".png")));
+    public static Image getImageByName(String name) throws FileNotFoundException {
+        return new Image(new FileInputStream(("src/sample/packs/" + selectedPack + "/images/" + name + ".png")));
     }
 }

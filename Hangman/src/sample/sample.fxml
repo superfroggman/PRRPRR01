@@ -14,7 +14,7 @@
             <Insets top="25" right="25" bottom="10" left="25"/>
         </padding>
 
-        <Text text="Hangman!" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+        <Text styleClass="title" text="Hangman!" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
 
         <Text text="Choose texture pack:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
         <ComboBox fx:id="menuPack" onAction="#packSelected" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
@@ -33,9 +33,9 @@
             <Insets top="25" right="25" bottom="10" left="25"/>
         </padding>
 
-        <Text text="Choose word!" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+        <Text styleClass="title" text="Choose word!" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
 
-        <TextField fx:id="chooseWordInput" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextField fx:id="chooseWordInput" onAction="#chooseWordSubmitPressed" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 
         <Button text="submit" onAction="#chooseWordSubmitPressed" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
     </GridPane>
@@ -47,9 +47,8 @@
             <Insets top="25" right="25" bottom="10" left="25"/>
         </padding>
 
-        <ImageView fx:id="guessImage" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-
-        <Text text="Guess stuff!" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <Text styleClass="title" text="Guess stuff!" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <ImageView fx:id="guessImage" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
         <Text fx:id="guessWord" text="temp" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
         <Text fx:id="guessLetters" text="temp" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
         <TextField fx:id="guessInput" onAction="#guessSubmitPressed" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
@@ -62,8 +61,10 @@
             <Insets top="25" right="25" bottom="10" left="25"/>
         </padding>
 
-        <Text text="You win!" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
-        <Button text="Main Menu" onAction="#mainMenuPressed" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <Text styleClass="title" text="You win!" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <ImageView fx:id="winImage" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <Text fx:id="winWord" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <Button text="Main Menu" onAction="#mainMenuPressed" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
     </GridPane>
 
     <GridPane fx:id="loseScene">
@@ -71,8 +72,10 @@
             <Insets top="25" right="25" bottom="10" left="25"/>
         </padding>
 
-        <Text text="You lose!" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
-        <Button text="Main Menu" onAction="#mainMenuPressed" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <Text styleClass="title" text="You lose!" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <ImageView fx:id="loseImage" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <Text fx:id="loseWord" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <Button text="Main Menu" onAction="#mainMenuPressed" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
     </GridPane>
 
 </GridPane>

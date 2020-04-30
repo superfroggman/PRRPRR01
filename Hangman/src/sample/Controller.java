@@ -42,12 +42,22 @@ public class Controller {
 
     @FXML
     private GridPane winScene;
+    @FXML
+    private ImageView winImage;
+    @FXML
+    private Text winWord;
 
     @FXML
     private GridPane loseScene;
+    @FXML
+    private ImageView loseImage;
+    @FXML
+    private Text loseWord;
 
 
     private String wordToGuess = "";
+
+    private String defaultPack = "default";
 
 
     /**
@@ -62,9 +72,8 @@ public class Controller {
 
         fillComboBoxes();
 
-        TexturePack.selectPack("default", main);
+        TexturePack.selectPack(defaultPack, main);
     }
-
 
     /**
      * Adds all languages with language files to the selectable list of languages + option to choose own word
@@ -89,7 +98,7 @@ public class Controller {
             System.out.println(pack);
             menuPack.getItems().addAll(pack.getName());
         }
-        menuPack.setValue(packs.get(0).getName());
+        menuPack.setValue(defaultPack);
     }
 
     /**
@@ -131,7 +140,6 @@ public class Controller {
         guessScene.setVisible(true);
     }
 
-
     /**
      * Sets up scene for guessing
      */
@@ -140,7 +148,7 @@ public class Controller {
         guessWord.setText(Backend.getUnderscoreString());
         guessLetters.setText("Guessed Letters: ");
 
-        guessImage.setImage(TexturePack.getCurrentImage(1));
+        guessImage.setImage(TexturePack.getImageByNumber(1));
     }
 
     /**
@@ -167,7 +175,7 @@ public class Controller {
         guessInput.setText(""); //Clear guess field
 
         //Update image of man being hung
-        guessImage.setImage(TexturePack.getCurrentImage(Backend.wrongGuesses + 1));
+        guessImage.setImage(TexturePack.getImageByNumber((Backend.wrongGuesses + 1)));
 
 
         if (Backend.win) {
@@ -178,12 +186,18 @@ public class Controller {
         }
     }
 
-    private void win() {
+    private void win() throws FileNotFoundException {
+        winImage.setImage(TexturePack.getImageByName("win"));
+        winWord.setText("The word was: " + wordToGuess);
+
         guessScene.setVisible(false);
         winScene.setVisible(true);
     }
 
-    private void lose() {
+    private void lose() throws FileNotFoundException {
+        loseImage.setImage(TexturePack.getImageByName("lose"));
+        loseWord.setText("The word was: " + wordToGuess);
+
         guessScene.setVisible(false);
         loseScene.setVisible(true);
     }
