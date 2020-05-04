@@ -88,7 +88,7 @@ public class Controller {
 
         menuLanguage.getItems().addAll("Choose word"); //Add option for user to choose own word
 
-        menuLanguage.setValue(menuLanguage.getItems().get(0));
+        menuLanguage.setValue(menuLanguage.getItems().get(0)); //Set default language to first option
 
 
         ArrayList<File> packs = TexturePack.getPacks(); //Gets all packs from which folders exist

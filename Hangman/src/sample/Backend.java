@@ -14,7 +14,7 @@ public class Backend {
     public static boolean lose = false;
 
 
-    public static void initialSetup(String wordIn){
+    public static void initialSetup(String wordIn) {
         System.out.println("Setting up backend");
 
         //reset variables
@@ -28,7 +28,7 @@ public class Backend {
         generateCharTypes(wordToGuess);
     }
 
-    public static void makeGuess(char guess){
+    public static void makeGuess(char guess) {
 
         //Check if letter is already guessed
         if (guessedLetters.contains(guess)) {
@@ -39,13 +39,13 @@ public class Backend {
         guessedLetters.add(guess); //Add letter to list of guessed letters
 
         //Increase number of wrong guesses if the letter is not in the word
-        if (!changeCharTypes(wordToGuess, guess)){
+        if (!changeCharTypes(wordToGuess, guess)) {
             wrongGuesses++;
         }
 
         //Lose if man is hung
-        if(wrongGuesses >= 10){
-            lose=true;
+        if (wrongGuesses >= 10) {
+            lose = true;
         }
 
         //Win if all letters are guessed
@@ -118,9 +118,14 @@ public class Backend {
         return guessPositions;
     }
 
+    /**
+     * Check if all letters are guessed
+     *
+     * @return
+     */
     public static boolean winCheck() {
-        //Check if all letters are guessed
         boolean finished = true;
+
         for (int charType : charTypes) {
             if (charType == 0) {
                 finished = false;
@@ -131,35 +136,43 @@ public class Backend {
         return finished;
     }
 
+    /**
+     * Gets string of characters and underscores based on what letters of the word has already been guessed
+     *
+     * @return
+     */
     public static String getUnderscoreString() {
         String out = "";
 
-        //Replaces letters with underscores and spaces with more spaces
+        //Loop through all letters in word
         for (int i = 0; i < wordToGuess.length(); i++) {
             int type = charTypes[i];
 
             switch (type) {
-                case 0:
+                case 0: //Underscore if not guessed
                     out += "_";
                     break;
                 case 1:
-                case 2:
+                case 2: //Actual character if guessed or non-guessable
                     out += wordToGuess.charAt(i);
                     break;
             }
-            out += " ";
+            out += " "; //Add spacing
         }
 
         return out;
     }
 
-    public static String getGuessedLetters(){
-
+    /**
+     * Gets string of characters from array of guessed letters
+     *
+     * @return
+     */
+    public static String getGuessedLetters() {
         String out = "";
-        for (char letter : guessedLetters){
+        for (char letter : guessedLetters) {
             out += letter;
         }
-
 
         return out;
     }
