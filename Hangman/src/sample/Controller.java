@@ -148,7 +148,7 @@ public class Controller {
         guessWord.setText(Backend.getUnderscoreString());
         guessLetters.setText("Guessed Letters: ");
 
-        guessImage.setImage(TexturePack.getImageByName("start"));
+        guessImage.setImage(TexturePack.getImageByNumber(0));
     }
 
     /**
@@ -174,6 +174,7 @@ public class Controller {
 
         guessInput.setText(""); //Clear guess field
 
+        System.out.println("image n: " + Backend.wrongGuesses);
         //Update image of man being hung
         guessImage.setImage(TexturePack.getImageByNumber((Backend.wrongGuesses)));
 
