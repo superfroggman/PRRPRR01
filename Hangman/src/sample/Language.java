@@ -35,7 +35,6 @@ public class Language {
         return words;
     }
 
-
     /**
      * Gets random word in uppercase from array of words
      *

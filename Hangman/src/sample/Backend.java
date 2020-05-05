@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Backend {
 
     public static String wordToGuess;
-    public static int[] charTypes;
+    public static int[] charTypes; //a number for each letter in the word showing what type of character it is
     public static ArrayList<Character> guessedLetters;
 
     public static int wrongGuesses = 0;
@@ -13,7 +13,11 @@ public class Backend {
     public static boolean win = false;
     public static boolean lose = false;
 
-
+    /**
+     * Resets variables and words to be able to play multiple times
+     *
+     * @param wordIn
+     */
     public static void initialSetup(String wordIn) {
         System.out.println("Setting up backend");
 
@@ -22,13 +26,24 @@ public class Backend {
         win = false;
         lose = false;
 
-        guessedLetters = new ArrayList<>();//Reset guessed letters every round
+        guessedLetters = new ArrayList<>();//Reset guessed letters
 
         wordToGuess = wordIn;
         generateCharTypes(wordToGuess);
     }
 
+    /**
+     * Entire code for making a guess and reacting accordingly
+     *
+     * @param guess
+     */
     public static void makeGuess(char guess) {
+
+        //Check that guess is a letter
+        if (Character.isLetter(guess)) {
+            System.out.println("GUESS NOT A LETTER");
+            return;
+        }
 
         //Check if letter is already guessed
         if (guessedLetters.contains(guess)) {
@@ -51,7 +66,6 @@ public class Backend {
         //Win if all letters are guessed
         win = winCheck();
     }
-
 
     /**
      * Generates arrays from word with values specifying i.e. spaces
