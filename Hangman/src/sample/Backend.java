@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Backend {
 
     public static String wordToGuess;
-    public static int[] charTypes;
+    public static int[] charTypes; //a number for each letter in the word showing what type of character it is
     public static ArrayList<Character> guessedLetters;
 
     public static int wrongGuesses = 0;
@@ -13,8 +13,12 @@ public class Backend {
     public static boolean win = false;
     public static boolean lose = false;
 
-
-    public static void initialSetup(String wordIn){
+    /**
+     * Resets variables and words to be able to play multiple times
+     *
+     * @param wordIn
+     */
+    public static void initialSetup(String wordIn) {
         System.out.println("Setting up backend");
 
         //reset variables
@@ -22,13 +26,24 @@ public class Backend {
         win = false;
         lose = false;
 
-        guessedLetters = new ArrayList<>();//Reset guessed letters every round
+        guessedLetters = new ArrayList<>();//Reset guessed letters
 
         wordToGuess = wordIn;
         generateCharTypes(wordToGuess);
     }
 
-    public static void makeGuess(char guess){
+    /**
+     * Entire code for making a guess and reacting accordingly
+     *
+     * @param guess
+     */
+    public static void makeGuess(char guess) {
+
+        //Check that guess is a letter
+        if (Character.isLetter(guess)) {
+            System.out.println("GUESS NOT A LETTER");
+            return;
+        }
 
         //Check if letter is already guessed
         if (guessedLetters.contains(guess)) {
@@ -39,19 +54,18 @@ public class Backend {
         guessedLetters.add(guess); //Add letter to list of guessed letters
 
         //Increase number of wrong guesses if the letter is not in the word
-        if (!changeCharTypes(wordToGuess, guess)){
+        if (!changeCharTypes(wordToGuess, guess)) {
             wrongGuesses++;
         }
 
         //Lose if man is hung
-        if(wrongGuesses >= 10){
-            lose=true;
+        if (wrongGuesses >= 10) {
+            lose = true;
         }
 
         //Win if all letters are guessed
         win = winCheck();
     }
-
 
     /**
      * Generates arrays from word with values specifying i.e. spaces
@@ -118,9 +132,14 @@ public class Backend {
         return guessPositions;
     }
 
+    /**
+     * Check if all letters are guessed
+     *
+     * @return
+     */
     public static boolean winCheck() {
-        //Check if all letters are guessed
         boolean finished = true;
+
         for (int charType : charTypes) {
             if (charType == 0) {
                 finished = false;
@@ -131,35 +150,43 @@ public class Backend {
         return finished;
     }
 
+    /**
+     * Gets string of characters and underscores based on what letters of the word has already been guessed
+     *
+     * @return
+     */
     public static String getUnderscoreString() {
         String out = "";
 
-        //Replaces letters with underscores and spaces with more spaces
+        //Loop through all letters in word
         for (int i = 0; i < wordToGuess.length(); i++) {
             int type = charTypes[i];
 
             switch (type) {
-                case 0:
+                case 0: //Underscore if not guessed
                     out += "_";
                     break;
                 case 1:
-                case 2:
+                case 2: //Actual character if guessed or non-guessable
                     out += wordToGuess.charAt(i);
                     break;
             }
-            out += " ";
+            out += " "; //Add spacing
         }
 
         return out;
     }
 
-    public static String getGuessedLetters(){
-
+    /**
+     * Gets string of characters from array of guessed letters
+     *
+     * @return
+     */
+    public static String getGuessedLetters() {
         String out = "";
-        for (char letter : guessedLetters){
+        for (char letter : guessedLetters) {
             out += letter;
         }
-
 
         return out;
     }

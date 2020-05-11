@@ -88,7 +88,7 @@ public class Controller {
 
         menuLanguage.getItems().addAll("Choose word"); //Add option for user to choose own word
 
-        menuLanguage.setValue(menuLanguage.getItems().get(0));
+        menuLanguage.setValue(menuLanguage.getItems().get(0)); //Set default language to first option
 
 
         ArrayList<File> packs = TexturePack.getPacks(); //Gets all packs from which folders exist
@@ -148,7 +148,7 @@ public class Controller {
         guessWord.setText(Backend.getUnderscoreString());
         guessLetters.setText("Guessed Letters: ");
 
-        guessImage.setImage(TexturePack.getImageByName("start"));
+        guessImage.setImage(TexturePack.getImageByNumber(0));
     }
 
     /**
@@ -174,6 +174,7 @@ public class Controller {
 
         guessInput.setText(""); //Clear guess field
 
+        System.out.println("image n: " + Backend.wrongGuesses);
         //Update image of man being hung
         guessImage.setImage(TexturePack.getImageByNumber((Backend.wrongGuesses)));
 

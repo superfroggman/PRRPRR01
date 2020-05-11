@@ -11,6 +11,12 @@ public class Main extends Application {
 
     public static Scene defaultScene;
 
+    /**
+     * Default setup for JavaFX
+     *
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
