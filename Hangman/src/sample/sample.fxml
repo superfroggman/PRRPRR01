@@ -47,7 +47,7 @@
             <Insets top="25" right="25" bottom="10" left="25"/>
         </padding>
 
-        <Text styleClass="title" text="Guess stuff!" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <Text styleClass="title" text="Guess!" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
         <ImageView fx:id="guessImage" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
         <Text fx:id="guessWord" text="temp" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
         <Text fx:id="guessLetters" text="temp" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
