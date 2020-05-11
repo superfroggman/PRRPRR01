@@ -40,7 +40,7 @@ public class Backend {
     public static void makeGuess(char guess) {
 
         //Check that guess is a letter
-        if (Character.isLetter(guess)) {
+        if (!Character.isLetter(guess)) {
             System.out.println("GUESS NOT A LETTER");
             return;
         }
